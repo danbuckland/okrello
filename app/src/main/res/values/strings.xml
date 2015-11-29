@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Okrello</string>
     <string name="main_welcome_message">Welcome to Okrello – Track your OKRs using Trello as a backend!</string>
+    <string name="main_btn_get_lists">Get lists</string>
 </resources>
