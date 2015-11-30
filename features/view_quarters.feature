@@ -10,5 +10,5 @@ so that I can later use them to view each quarter's OKRs.
     And I am on the Main screen of the app
 
   Scenario: Get lists from single Trello board
-    When I tap the 'Get lists' button
+    When I tap 'Get lists'
     Then I should see the names of each list from the Trello board
