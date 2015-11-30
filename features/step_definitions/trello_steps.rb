@@ -5,6 +5,6 @@
 
 Given(/^I have a Trello board with at least one list$/) do
   # use a Get request to check that the public test board has lists
-  puts 'Imagine I checked and there were some list'
+  puts 'Just imagine I checked and there were some lists'
   puts 'Found 4 lists on Trello board'
 end
