@@ -25,6 +25,8 @@ import retrofit.Retrofit;
 public class MainActivity extends AppCompatActivity {
 
     public static final String BASE_URL = "https://api.trello.com/1/";
+    public static final String BOARD_ID = "5RMq1Nyb";
+    public static final String KEY = "cf2308ac2c68ab9a54037478108439e4";
 
     public static ProgressBar progressBar;
     public static Button getListsBtn;
@@ -64,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
-        String key = "cf2308ac2c68ab9a54037478108439e4";
+
 
         // Make the call
-        final Call<List<TrelloList>> call = trelloApi.getLists(key);
+        final Call<List<TrelloList>> call = trelloApi.getLists(BOARD_ID, KEY);
         call.enqueue(new Callback<List<TrelloList>>() {
 
 
