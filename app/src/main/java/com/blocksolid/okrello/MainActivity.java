@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Populate list view with strings from array
         ArrayList<String> trelloListsArray = new ArrayList<>();
-        trelloListsArray.add(0, "Q1 2015");
-        trelloListsArray.add(1, "Q2 2015");
-        trelloListsArray.add(2, "Q3 2015");
-        trelloListsArray.add(3, "Q4 2015");
+        trelloListsArray.add("Q1 2015");
+        trelloListsArray.add("Q2 2015");
+        trelloListsArray.add("Q3 2015");
+        trelloListsArray.add("Q4 2015");
 
         listView.setAdapter(new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, trelloListsArray));
 
