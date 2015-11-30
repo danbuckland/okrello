@@ -5,6 +5,7 @@
 
 Given(/^I have a Trello board with at least one list$/) do
   # use a Get request to check that the public test board has lists
-  puts 'Just imagine I checked and there were some lists'
-  puts 'Found 4 lists on Trello board'
+  response = HTTParty.get("#{BASE_URL}boards/#{BOARD_ID}/lists?key=#{KEY}")
+  no_of_lists = response.size
+  raise 'No lists on Trello board' unless no_of_lists > 0
 end
