@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY = "cf2308ac2c68ab9a54037478108439e4";
 
     public static ProgressBar progressBar;
-    public static Button getListsBtn;
+    public static Button refreshListsBtn;
     public static List<TrelloList> trelloLists;
     public static ListView listView;
 
@@ -41,24 +41,23 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         progressBar.setVisibility(View.INVISIBLE);
 
-        getListsBtn = (Button) findViewById(R.id.main_btn_get_lists);
+        refreshListsBtn = (Button) findViewById(R.id.main_btn_refresh_lists);
         listView = (ListView) findViewById(R.id.main_list_lists);
 
-        getListsBtn.setOnClickListener(new View.OnClickListener() {
+        refreshListsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getLists();
             }
         });
+        getLists();
     }
 
     private void getLists() {
         // Show progress indicator while working
         progressBar.setVisibility(View.VISIBLE);
 
-        // TODO make retrofit call to capture Lists to an array
         // Retrofit stuff starts here
-        // Retrofit stuff here
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -66,19 +65,18 @@ public class MainActivity extends AppCompatActivity {
 
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
-
-
-        // Make the call
+        // Define the request
         final Call<List<TrelloList>> call = trelloApi.getLists(BOARD_ID, KEY);
-        call.enqueue(new Callback<List<TrelloList>>() {
 
+        // Make the request
+        call.enqueue(new Callback<List<TrelloList>>() {
 
             @Override
             public void onResponse(Response<List<TrelloList>> response, Retrofit retrofit) {
                 trelloLists = response.body();
 
+                // Get list names from response and add each to a new array
                 ArrayList<String> trelloListsArray = new ArrayList<>();
-
                 for (TrelloList listItem : trelloLists) {
                     trelloListsArray.add(listItem.getName());
                 }
@@ -97,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Retrofit", t.getMessage());
                 progressBar.setVisibility(View.INVISIBLE);
             }
-
         });
     }
 }
