@@ -12,4 +12,12 @@ class Base < Calabash::ABase
     end
   end
 
+  def wait_for_progress_to_complete
+    wait_for_element_does_not_exist("android.widget.ProgressBar")
+  end
+
+  def list_items
+    query("ListView AppCompatTextView", :text)
+  end
+
 end
