@@ -37,7 +37,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:gravity="bottom|center_horizontal"
             android:paddingTop="20dp"
             android:paddingBottom="20dp">
@@ -46,5 +46,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/main_btn_refresh_lists"
                 android:text="@string/main_btn_refresh_lists"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_btn_get_cards"
+                android:text="@string/main_btn_get_cards"/>
         </LinearLayout>
     </LinearLayout>
