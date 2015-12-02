@@ -5,3 +5,5 @@
 .DS_Store
 /build
 /captures
+Gemfile.lock
+test_servers
