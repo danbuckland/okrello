@@ -1,3 +1,3 @@
 $buttons = {
-  "Get lists" => "main_btn_get_lists"
+  "Refresh lists" => "main_btn_refresh_lists"
 }

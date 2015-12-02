@@ -8,7 +8,8 @@ Before do |scenario|
 
   @base ||= page(Base)
 	@screens ||= page(Screens)
-  
+  @trello ||= page(Trello)
+
   scenario = scenario.scenario_outline if scenario.respond_to?(:scenario_outline)
 
   feature = scenario.feature
