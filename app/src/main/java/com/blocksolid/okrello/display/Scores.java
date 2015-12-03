@@ -11,9 +11,15 @@ public class Scores {
         Pattern pattern = Pattern.compile("\\[(\\d{1}\\.\\d{1})\\]");
         Matcher m = pattern.matcher(string);
         if (m.find()) {
-            return m.group(1);
+            String score = m.group(1);
+            double value = Double.parseDouble(score);
+            if (value > 1) {
+                return "1.0";
+            } else {
+                return score;
+            }
         } else {
-            return "";
+            return "!";
         }
     }
 }
