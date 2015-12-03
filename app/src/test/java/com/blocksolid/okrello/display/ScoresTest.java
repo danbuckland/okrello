@@ -9,7 +9,7 @@ public class ScoresTest {
     Scores scores = new Scores();
 
     // Tests for extractScoreFromString method
-
+    // Positive tests for the 11 possible scores
     @Test
     public void extractScoreFromString_typicalStringEndingIn0point0_returns0point0() throws Exception {
         // A string containing "[0.0]" should return a score of "0.0"
@@ -18,4 +18,83 @@ public class ScoresTest {
         assertEquals("0.0", result);
     }
 
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point1_returns0point1() throws Exception {
+        // A string containing "[0.1]" should return a score of "0.1"
+        String string = "This is a typical card title structure [0.1]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.1", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point2_returns0point2() throws Exception {
+        // A string containing "[0.2]" should return a score of "0.2"
+        String string = "This is a typical card title structure [0.2]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.2", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point3_returns0point3() throws Exception {
+        // A string containing "[0.3]" should return a score of "0.3"
+        String string = "This is a typical card title structure [0.3]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.3", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point4_returns0point4() throws Exception {
+        // A string containing "[0.4]" should return a score of "0.4"
+        String string = "This is a typical card title structure [0.4]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.4", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point5_returns0point5() throws Exception {
+        // A string containing "[0.5]" should return a score of "0.5"
+        String string = "This is a typical card title structure [0.5]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.5", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point6_returns0point6() throws Exception {
+        // A string containing "[0.6]" should return a score of "0.6"
+        String string = "This is a typical card title structure [0.6]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.6", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point7_returns0point7() throws Exception {
+        // A string containing "[0.7]" should return a score of "0.7"
+        String string = "This is a typical card title structure [0.7]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.7", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point8_returns0point8() throws Exception {
+        // A string containing "[0.8]" should return a score of "0.8"
+        String string = "This is a typical card title structure [0.8]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.8", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point9_returns0point9() throws Exception {
+        // A string containing "[0.9]" should return a score of "0.9"
+        String string = "This is a typical card title structure [0.9]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.9", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn1point0_returns1point0() throws Exception {
+        // A string containing "[1.0]" should return a score of "1.0"
+        String string = "This is a typical card title structure [1.0]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("1.0", result);
+    }
 }
