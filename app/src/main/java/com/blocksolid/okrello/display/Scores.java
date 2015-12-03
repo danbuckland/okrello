@@ -1,12 +1,19 @@
 package com.blocksolid.okrello.display;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Dan Buckland on 02/12/2015.
  */
 public class Scores {
     public String extractScoreFromString(String string) {
-        return "";
+        Pattern pattern = Pattern.compile("\\[(\\d{1}\\.\\d{1})\\]");
+        Matcher m = pattern.matcher(string);
+        if (m.find()) {
+            return m.group(1);
+        } else {
+            return "";
+        }
     }
 }
