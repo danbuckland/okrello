@@ -97,4 +97,15 @@ public class ScoresTest {
         String result = scores.extractScoreFromString(string);
         assertEquals("1.0", result);
     }
+
+
+    // Tests for numbers above 1.0 that should be rounded down to 1.0
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn1point1_returns1point0() throws Exception {
+        // A string containing "[1.1]" should return a score of "1.0"
+        String string = "This is a typical card title structure with an invalid score of [1.1]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("1.0", result);
+    }
+
 }
