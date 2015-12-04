@@ -22,4 +22,8 @@ public class Scores {
             return "!";
         }
     }
+
+    public String removeScoreFromString(String string) {
+        return "";
+    }
 }

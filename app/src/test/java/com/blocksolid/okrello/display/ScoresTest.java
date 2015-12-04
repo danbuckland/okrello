@@ -201,4 +201,40 @@ public class ScoresTest {
         String result = scores.extractScoreFromString(string);
         assertEquals("0.5", result);
     }
+
+
+
+    // Tests for removeScoreFromString method
+    // Positive tests for 4 common goal title structures
+    @Test
+    public void removeScoreFromString_stringWithSpaceAndScoreAppended_returnsString() throws Exception {
+        // A string containing only a score should still return a score
+        String string = "This is a typical card title structure with space [0.0]";
+        String result = scores.removeScoreFromString(string);
+        assertEquals("This is a typical card title structure with space", result);
+    }
+
+    @Test
+    public void removeScoreFromString_stringWithScoreAppended_returnsString() throws Exception {
+        // A string containing only a score should still return a score
+        String string = "This is a typical card title structure without space[0.0]";
+        String result = scores.removeScoreFromString(string);
+        assertEquals("This is a typical card title structure without space", result);
+    }
+
+    @Test
+    public void removeScoreFromString_stringWithScoreAndSpacePrepended_returnsString() throws Exception {
+        // A string containing only a score should still return a score
+        String string = "[0.0] This is an alternative card title structure with prepended score and space";
+        String result = scores.removeScoreFromString(string);
+        assertEquals("This is an alternative card title structure with prepended score and space", result);
+    }
+
+    @Test
+    public void removeScoreFromString_stringWithScorePrepended_returnsString() throws Exception {
+        // A string containing only a score should still return a score
+        String string = "[0.0]This is an alternative card title structure with prepended score without space";
+        String result = scores.removeScoreFromString(string);
+        assertEquals("This is an alternative card title structure with prepended score without space", result);
+    }
 }
