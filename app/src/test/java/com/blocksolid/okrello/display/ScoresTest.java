@@ -108,4 +108,97 @@ public class ScoresTest {
         assertEquals("1.0", result);
     }
 
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn9point0_returns1point0() throws Exception {
+        // A string containing "[9.0]" should return a score of "1.0"
+        String string = "This is a typical card title structure with an invalid score of [9.0]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("1.0", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn9point9_returns1point0() throws Exception {
+        // A string containing "[9.9]" should return a score of "1.0"
+        String string = "This is a typical card title structure with an invalid score of [9.9]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("1.0", result);
+    }
+
+    // Tests for numbers more than 1 digit that should return "!"
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn10point0_returnsExclamation() throws Exception {
+        // A string containing "[10.0]" should return a score of "!"
+        String string = "This is a typical card title structure with an invalid score of [10.0]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("!", result);
+    }
+
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn9999999999point9_returnsExclamation() throws Exception {
+        // A string containing "[9999999999.9]" should return a score of "!"
+        String string = "This is a typical card title structure with an invalid score of [9999999999.9]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("!", result);
+    }
+
+    // Tests for numbers with more than 1 number after decimal place
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point01_returnsExclamation() throws Exception {
+        // A string containing "[0.01]" should return a score of "!"
+        String string = "This is a typical card title structure with an invalid score of [0.01]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("!", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn0point11_returnsExclamation() throws Exception {
+        // A string containing "[0.11]" should return a score of "!"
+        String string = "This is a typical card title structure with an invalid score of [0.11]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("!", result);
+    }
+
+    @Test
+    public void extractScoreFromString_typicalStringEndingIn9point9999999999_returnsExclamation() throws Exception {
+        // A string containing "[9.9999999999]" should return a score of "!"
+        String string = "This is a typical card title structure with an invalid score of [9.9999999999]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("!", result);
+    }
+
+    // Tests for strings that have more than one score in the valid format
+    @Test
+    public void extractScoreFromString_stringWithTwoScores_returnsFirstScore() throws Exception {
+        // A string containing two valid scores should only return the first valid score
+        String string = "This card title has two scores [0.5] and [0.1]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.5", result);
+    }
+
+    @Test
+    public void extractScoreFromString_stringWithThreeScores_returnsFirstScore() throws Exception {
+        // A string containing two valid scores should only return the first valid score
+        String string = "[1.0] This card title has three scores one at the start plus [0.5] and [0.1]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("1.0", result);
+    }
+
+    // Tests for strings that have no score
+    @Test
+    public void extractScoreFromString_stringWithNoScore_returnsExclamation() throws Exception {
+        // A string containing two valid scores should only return the first valid score
+        String string = "This card title has no score";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("!", result);
+    }
+
+    // Tests for strings that have just a score but nothing else
+    @Test
+    public void extractScoreFromString_scoreOnlyString_returnsScore() throws Exception {
+        // A string containing only a score should still return a score
+        String string = "[0.5]";
+        String result = scores.extractScoreFromString(string);
+        assertEquals("0.5", result);
+    }
 }
