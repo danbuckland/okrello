@@ -24,6 +24,7 @@ public class Scores {
     }
 
     public String removeScoreFromString(String string) {
-        return "";
+        string = string.replaceAll("\\[\\d{1}\\.\\d{1}\\]", "").trim();
+        return string;
     }
 }
