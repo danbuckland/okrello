@@ -1,9 +1,11 @@
 package com.blocksolid.okrello;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -23,19 +25,14 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    public static final String BASE_URL = "https://api.trello.com/1/";
+
     public static final String BOARD_ID = "5RMq1Nyb";
-    public static final String KEY = "cf2308ac2c68ab9a54037478108439e4";
-
-    public static final String TEST_LIST_ID = "565c9e7e21d1eaebe45903d7";
 
     public static ProgressBar progressBar;
     public static Button refreshListsBtn;
-    public static Button getCardsBtn;
     public static List<TrelloList> trelloLists;
-    public static List<TrelloCard> trelloCards;
     public static ListView listView;
 
     @Override
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
 
         refreshListsBtn = (Button) findViewById(R.id.main_btn_refresh_lists);
-        getCardsBtn = (Button) findViewById(R.id.main_btn_get_cards);
         listView = (ListView) findViewById(R.id.main_list_lists);
 
         refreshListsBtn.setOnClickListener(new View.OnClickListener() {
@@ -56,13 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 getLists();
             }
         });
-        getCardsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getCards();
-            }
-        });
 
+        listView.setOnItemClickListener(this);
         getLists();
     }
 
@@ -72,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrofit stuff starts here
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(TrelloApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
         // Define the request
-        final Call<List<TrelloList>> call = trelloApi.getLists(BOARD_ID, KEY);
+        final Call<List<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY);
 
         // Make the request
         call.enqueue(new Callback<List<TrelloList>>() {
@@ -111,48 +102,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getCards() {
-        // Show progress indicator while working
-        progressBar.setVisibility(View.VISIBLE);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Grab the ID of the selected Trello List (Quarter)
+        TrelloList trelloList = trelloLists.get(position);
+        String listId = trelloList.getId();
 
-        // Retrofit stuff starts here
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        // Intent to take the user to a new ObjectivesActivity
+        Intent objectivesIntent = new Intent(this, ObjectivesActivity.class);
 
-        TrelloApi trelloApi = retrofit.create(TrelloApi.class);
+        // Pass across the list ID in the intent
+        objectivesIntent.putExtra("listId", listId);
 
-        // Define the request
-        final Call<List<TrelloCard>> call = trelloApi.getCards(TEST_LIST_ID, KEY);
-
-        // Make the request
-        call.enqueue(new Callback<List<TrelloCard>>() {
-
-            @Override
-            public void onResponse(Response<List<TrelloCard>> response, Retrofit retrofit) {
-                trelloCards = response.body();
-
-                // Get list names from response and add each to a new array
-                ArrayList<String> trelloCardsArray = new ArrayList<>();
-                for (TrelloCard listItem : trelloCards) {
-                    trelloCardsArray.add(listItem.getName());
-                }
-
-                // Populate list view with strings from array
-                listView.setAdapter(new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, trelloCardsArray));
-
-                // Hide progress indicator when done
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                // Log error here since request failed
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.d("Retrofit", t.getMessage());
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-        });
+        // start the next Activity using the above intent
+        startActivity(objectivesIntent);
     }
 }

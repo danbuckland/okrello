@@ -14,6 +14,9 @@ import retrofit.http.Query;
  * Created by Dan Buckland on 30/11/2015.
  */
 public interface TrelloApi {
+    public static final String BASE_URL = "https://api.trello.com/1/";
+    public static final String KEY = "cf2308ac2c68ab9a54037478108439e4";
+
     // Request method and URL specified in the annotation
     // Callback for the parsed response is the last parameter
 
