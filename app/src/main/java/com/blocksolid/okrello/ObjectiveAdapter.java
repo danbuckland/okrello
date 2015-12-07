@@ -23,7 +23,7 @@ public class ObjectiveAdapter extends BaseAdapter {
     public ObjectiveAdapter (Context context, LayoutInflater inflater) {
         mContext = context;
         mInflater = inflater;
-        mTrelloCards = new ArrayList<TrelloCard>();
+        mTrelloCards = new ArrayList<>();
 
     }
 
@@ -58,7 +58,7 @@ public class ObjectiveAdapter extends BaseAdapter {
             holder.goalText = (TextView) convertView.findViewById(R.id.list_goal);
             holder.scoreText = (TextView) convertView.findViewById(R.id.list_score);
 
-            // hang onto this holder for future recyclage
+            // hang onto this holder for future recycling
             convertView.setTag(holder);
         } else {
 
@@ -68,8 +68,8 @@ public class ObjectiveAdapter extends BaseAdapter {
         }
 
         TrelloCard trelloCard = mTrelloCards.get(position);
-        holder.goalText.setText(Scores.removeScoreFromString(trelloCard.getName()));
-        holder.scoreText.setText(Scores.extractScoreFromString(trelloCard.getName()));
+        holder.goalText.setText(trelloCard.getObjective());
+        holder.scoreText.setText(trelloCard.getScore());
 
         return convertView;
     }

@@ -84,19 +84,9 @@ public class ObjectivesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<ArrayList<TrelloCard>> response, Retrofit retrofit) {
                 trelloCards = response.body();
-
-//                // Get list names from response and add each to a new array
-//                ArrayList<String> trelloCardsArray = new ArrayList<>();
-//                for (TrelloCard listItem : trelloCards) {
-//                    trelloCardsArray.add(Scores.removeScoreFromString(listItem.getName()));
-//                }
-//
-//                // Populate list view with strings from array
-//                listView.setAdapter(new ArrayAdapter<>(ObjectivesActivity.this, android.R.layout.simple_list_item_1, trelloCardsArray));
-
-                // Hide progress indicator when done
-                // update the data in your custom method.
+                // Update data in custom view adapter
                 objectiveAdapter.updateData(trelloCards);
+                // Hide progress indicator when done
                 objsProgressBar.setVisibility(View.INVISIBLE);
             }
 
