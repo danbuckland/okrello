@@ -4,6 +4,6 @@
     <string name="main_btn_refresh_lists">Refresh lists</string>
     <string name="main_btn_get_cards">Get cards</string>
     <string name="activity_objectives">Objectives</string>
-    <string name="objs_currently_showing">Currently showing individual objectives for &#8230;</string>
+    <string name="objs_currently_showing">Q4 2015</string>
     <string name="objs_btn_refresh_cards">Refresh cards</string>
 </resources>

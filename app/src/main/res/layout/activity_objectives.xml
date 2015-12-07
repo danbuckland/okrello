@@ -12,15 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <TextView
-            android:text="@string/objs_currently_showing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="70dp">
+            android:layout_height="wrap_content">
             <ProgressBar
                 android:id="@+id/objs_progress"
                 android:layout_width="match_parent"
@@ -31,18 +25,5 @@
                 android:id="@+id/objs_list_cards">
             </ListView>
         </RelativeLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom|center_horizontal"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/objs_btn_refresh_cards"
-            android:text="@string/objs_btn_refresh_cards"/>
     </LinearLayout>
 </LinearLayout>

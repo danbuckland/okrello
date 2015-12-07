@@ -13,13 +13,19 @@
         android:text="This is a sample card objective"
         android:gravity="center_vertical|start"
         android:textSize="16sp"/>
-    <TextView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/list_score"
-        android:background="@color/light_grey"
-        android:gravity="center"
-        android:text="0.5"
-        android:textSize="16sp"/>
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/shape_score"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/list_score"
+            android:gravity="center"
+            android:text="0.5"
+            android:textSize="16sp"/>
+    </RelativeLayout>
 </LinearLayout>

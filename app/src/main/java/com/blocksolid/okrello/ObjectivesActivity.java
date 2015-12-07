@@ -50,21 +50,12 @@ public class ObjectivesActivity extends AppCompatActivity {
         objsProgressBar = (ProgressBar) findViewById(R.id.objs_progress);
         objsProgressBar.setVisibility(View.INVISIBLE);
 
-        refreshCardsBtn = (Button) findViewById(R.id.objs_btn_refresh_cards);
         listView = (ListView) findViewById(R.id.objs_list_cards);
 
         listId = this.getIntent().getExtras().getString("listId");
 
-
         objectiveAdapter = new ObjectiveAdapter(this, getLayoutInflater());
         listView.setAdapter(objectiveAdapter);
-
-        refreshCardsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getCards();
-            }
-        });
 
         getCards();
     }
