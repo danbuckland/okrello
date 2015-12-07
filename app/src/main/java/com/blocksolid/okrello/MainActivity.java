@@ -105,12 +105,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Grab the ID of the selected Trello List (Quarter)
         TrelloList trelloList = trelloLists.get(position);
         String listId = trelloList.getId();
+        String listName = trelloList.getName();
 
         // Intent to take the user to a new ObjectivesActivity
         Intent objectivesIntent = new Intent(this, ObjectivesActivity.class);
 
         // Pass across the list ID in the intent
         objectivesIntent.putExtra("listId", listId);
+        objectivesIntent.putExtra("listName", listName);
 
         // start the next Activity using the above intent
         startActivity(objectivesIntent);

@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blocksolid.okrello.api.TrelloApi;
@@ -33,6 +34,7 @@ public class ObjectivesActivity extends AppCompatActivity {
     public static Button refreshCardsBtn;
     public static ProgressBar objsProgressBar;
     public String listId;
+    public String listName;
     ObjectiveAdapter objectiveAdapter;
 
     @Override
@@ -40,6 +42,10 @@ public class ObjectivesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_objectives);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Set Activity title to the selected list name
+        listName = this.getIntent().getExtras().getString("listName");
+        setTitle(listName);
 
         objsProgressBar = (ProgressBar) findViewById(R.id.objs_progress);
         objsProgressBar.setVisibility(View.INVISIBLE);
