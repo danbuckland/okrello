@@ -3,7 +3,7 @@ package com.blocksolid.okrello.api;
 import com.blocksolid.okrello.model.TrelloCard;
 import com.blocksolid.okrello.model.TrelloList;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit.Call;
 import retrofit.http.GET;
@@ -22,11 +22,11 @@ public interface TrelloApi {
 
     // Get lists from board
     @GET("boards/{boardId}/lists")
-    Call<List<TrelloList>> getLists(@Path("boardId") String boardId,
+    Call<ArrayList<TrelloList>> getLists(@Path("boardId") String boardId,
                                     @Query("key") String key);
 
     // Get cards from list
     @GET("lists/{listId}/cards")
-    Call<List<TrelloCard>> getCards(@Path("listId") String listId,
+    Call<ArrayList<TrelloCard>> getCards(@Path("listId") String listId,
                                     @Query("key") String key);
 }

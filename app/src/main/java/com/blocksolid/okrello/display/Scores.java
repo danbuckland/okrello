@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Created by Dan Buckland on 02/12/2015.
  */
 public class Scores {
-    public String extractScoreFromString(String string) {
+    public static String extractScoreFromString(String string) {
         Pattern pattern = Pattern.compile("\\[(\\d{1}\\.\\d{1})\\]");
         Matcher m = pattern.matcher(string);
         if (m.find()) {
@@ -23,8 +23,9 @@ public class Scores {
         }
     }
 
-    public String removeScoreFromString(String string) {
+    public static String removeScoreFromString(String string) {
         string = string.replaceAll("\\[\\d{1}\\.\\d{1}\\]", "").trim();
         return string;
+        //TODO remove additional whitespace when a score is removed from the middle of an objective
     }
 }

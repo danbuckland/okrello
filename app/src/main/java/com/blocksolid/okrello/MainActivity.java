@@ -13,11 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.blocksolid.okrello.api.TrelloApi;
-import com.blocksolid.okrello.model.TrelloCard;
 import com.blocksolid.okrello.model.TrelloList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public static ProgressBar progressBar;
     public static Button refreshListsBtn;
-    public static List<TrelloList> trelloLists;
+    public static ArrayList<TrelloList> trelloLists;
     public static ListView listView;
 
     @Override
@@ -70,13 +68,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
         // Define the request
-        final Call<List<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY);
+        final Call<ArrayList<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY);
 
         // Make the request
-        call.enqueue(new Callback<List<TrelloList>>() {
+        call.enqueue(new Callback<ArrayList<TrelloList>>() {
 
             @Override
-            public void onResponse(Response<List<TrelloList>> response, Retrofit retrofit) {
+            public void onResponse(Response<ArrayList<TrelloList>> response, Retrofit retrofit) {
                 trelloLists = response.body();
 
                 // Get list names from response and add each to a new array

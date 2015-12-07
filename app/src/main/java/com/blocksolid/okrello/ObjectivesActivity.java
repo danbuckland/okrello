@@ -28,11 +28,12 @@ import retrofit.Retrofit;
  */
 public class ObjectivesActivity extends AppCompatActivity {
 
-    public static List<TrelloCard> trelloCards;
+    public static ArrayList<TrelloCard> trelloCards;
     public static ListView listView;
     public static Button refreshCardsBtn;
     public static ProgressBar objsProgressBar;
     public String listId;
+    ObjectiveAdapter objectiveAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,10 @@ public class ObjectivesActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.objs_list_cards);
 
         listId = this.getIntent().getExtras().getString("listId");
+
+
+        objectiveAdapter = new ObjectiveAdapter(this, getLayoutInflater());
+        listView.setAdapter(objectiveAdapter);
 
         refreshCardsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,25 +76,27 @@ public class ObjectivesActivity extends AppCompatActivity {
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
         // Define the request
-        final Call<List<TrelloCard>> call = trelloApi.getCards(listId, TrelloApi.KEY);
+        final Call<ArrayList<TrelloCard>> call = trelloApi.getCards(listId, TrelloApi.KEY);
 
         // Make the request
-        call.enqueue(new Callback<List<TrelloCard>>() {
+        call.enqueue(new Callback<ArrayList<TrelloCard>>() {
 
             @Override
-            public void onResponse(Response<List<TrelloCard>> response, Retrofit retrofit) {
+            public void onResponse(Response<ArrayList<TrelloCard>> response, Retrofit retrofit) {
                 trelloCards = response.body();
 
-                // Get list names from response and add each to a new array
-                ArrayList<String> trelloCardsArray = new ArrayList<>();
-                for (TrelloCard listItem : trelloCards) {
-                    trelloCardsArray.add(listItem.getName());
-                }
-
-                // Populate list view with strings from array
-                listView.setAdapter(new ArrayAdapter<>(ObjectivesActivity.this, android.R.layout.simple_list_item_1, trelloCardsArray));
+//                // Get list names from response and add each to a new array
+//                ArrayList<String> trelloCardsArray = new ArrayList<>();
+//                for (TrelloCard listItem : trelloCards) {
+//                    trelloCardsArray.add(Scores.removeScoreFromString(listItem.getName()));
+//                }
+//
+//                // Populate list view with strings from array
+//                listView.setAdapter(new ArrayAdapter<>(ObjectivesActivity.this, android.R.layout.simple_list_item_1, trelloCardsArray));
 
                 // Hide progress indicator when done
+                // update the data in your custom method.
+                objectiveAdapter.updateData(trelloCards);
                 objsProgressBar.setVisibility(View.INVISIBLE);
             }
 
