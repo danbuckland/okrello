@@ -1,13 +1,14 @@
 package com.blocksolid.okrello;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blocksolid.okrello.display.Scores;
 import com.blocksolid.okrello.model.TrelloCard;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class ObjectiveAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.goalText = (TextView) convertView.findViewById(R.id.list_goal);
             holder.scoreText = (TextView) convertView.findViewById(R.id.list_score);
+            holder.scoreCircle = (ImageView) convertView.findViewById(R.id.list_score_circle);
 
             // hang onto this holder for future recycling
             convertView.setTag(holder);
@@ -70,6 +72,7 @@ public class ObjectiveAdapter extends BaseAdapter {
         TrelloCard trelloCard = mTrelloCards.get(position);
         holder.goalText.setText(trelloCard.getObjective());
         holder.scoreText.setText(trelloCard.getScore());
+        holder.scoreCircle.setColorFilter(trelloCard.getScoreColor(), PorterDuff.Mode.SRC_IN);
 
         return convertView;
     }
@@ -77,6 +80,7 @@ public class ObjectiveAdapter extends BaseAdapter {
     private static class ViewHolder {
         public TextView goalText;
         public TextView scoreText;
+        public ImageView scoreCircle;
     }
 
     public void updateData(ArrayList<TrelloCard> trelloCards) {
