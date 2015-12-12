@@ -208,7 +208,7 @@ public class ScoresTest {
     // Positive tests for 4 common goal title structures
     @Test
     public void getGoal_stringWithSpaceAndScoreAppended_returnsString() throws Exception {
-        // A string containing only a score should still return a score
+        // A string with score at the end should have the score and trailing white space removed
         String string = "This is a typical card title structure with space [0.0]";
         String result = scores.getGoal(string);
         assertEquals("This is a typical card title structure with space", result);
@@ -216,7 +216,7 @@ public class ScoresTest {
 
     @Test
     public void getGoal_stringWithScoreAppended_returnsString() throws Exception {
-        // A string containing only a score should still return a score
+        // A string with score at the end but no space should have the score removed
         String string = "This is a typical card title structure without space[0.0]";
         String result = scores.getGoal(string);
         assertEquals("This is a typical card title structure without space", result);
@@ -224,17 +224,33 @@ public class ScoresTest {
 
     @Test
     public void getGoal_stringWithScoreAndSpacePrepended_returnsString() throws Exception {
-        // A string containing only a score should still return a score
+        // A string with score at the start should have the score and white space removed
         String string = "[0.0] This is an alternative card title structure with prepended score and space";
         String result = scores.getGoal(string);
         assertEquals("This is an alternative card title structure with prepended score and space", result);
     }
 
     @Test
-    public void getGoal_stringWithScorePrepended_returnsString() throws Exception {
-        // A string containing only a score should still return a score
-        String string = "[0.0]This is an alternative card title structure with prepended score without space";
+    public void getGoal_stringWithScoreInTheMiddle_returnsString() throws Exception {
+        // A string with the score in the middle should not return two spaces next to each other
+        String string = "This is a card title with the score [1.0] in the middle";
         String result = scores.getGoal(string);
-        assertEquals("This is an alternative card title structure with prepended score without space", result);
+        assertEquals("This is a card title with the score in the middle", result);
+    }
+
+    @Test
+    public void getGoal_stringWithTwoScores_returnsString() throws Exception {
+        // A string with two scores should return the string only
+        String string = "[0.0] This is an alternative card title structure with score appended and prepended [0.5]";
+        String result = scores.getGoal(string);
+        assertEquals("This is an alternative card title structure with score appended and prepended", result);
+    }
+
+    @Test
+    public void getGoal_stringWithThreeScores_returnsString() throws Exception {
+        // A string containing only a score should still return a score
+        String string = "[0.0] This card title [0.9] has three scores for some reason [0.3]";
+        String result = scores.getGoal(string);
+        assertEquals("This card title has three scores for some reason", result);
     }
 }
