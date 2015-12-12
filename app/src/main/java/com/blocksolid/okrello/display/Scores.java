@@ -26,6 +26,5 @@ public class Scores {
     public static String getGoal(String string) {
         string = string.replaceAll("\\s?\\[\\d{1}\\.\\d{1}\\]", "").trim();
         return string;
-        //TODO remove additional whitespace when a score is removed from the middle of an objective
     }
 }
