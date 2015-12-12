@@ -39,7 +39,7 @@ public class TrelloCard {
     }
 
     public String getObjective() {
-        return name.replaceAll("\\[\\d{1}\\.\\d{1}\\]", "").trim();
+        return name.replaceAll("\\s?\\[\\d{1}\\.\\d{1}\\]", "").trim();
         //TODO remove additional whitespace when a score is removed from the middle of an objective
     }
 
