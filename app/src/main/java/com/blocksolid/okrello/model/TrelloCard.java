@@ -19,7 +19,11 @@ public class TrelloCard {
 
     public String getName() {
         return name;
+    }
 
+    public void setName(String name) {
+        // TODO remove this after unit tests have been updated to use a mock backend
+        this.name = name;
     }
 
     public String getScore() {
