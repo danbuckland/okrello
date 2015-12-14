@@ -57,9 +57,9 @@ public class TrelloCard {
         int color = Color.parseColor(grey);
         if (!scoreString.equals("!")) {
             double score = Double.valueOf(scoreString);
-            if (score < 0.35) {
+            if (score < 0.25) {
                 color = Color.parseColor(red);
-            } else if (score < 0.65) {
+            } else if (score < 0.55) {
                 color = Color.parseColor(amber);
             } else {
                 color = Color.parseColor(green);
