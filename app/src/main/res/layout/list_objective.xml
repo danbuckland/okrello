@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingTop="10dp"
-              android:paddingBottom="10dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin">
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingRight="8dp"
+        android:paddingRight="10dp"
         android:id="@+id/list_goal"
         android:text="@string/list_objs_long_objective"
         android:ellipsize="end"
@@ -23,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical">
         <ImageView
+            tools:ignore="ContentDescription"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/list_score_circle"
@@ -33,7 +38,7 @@
             android:id="@+id/list_score"
             android:gravity="center"
             android:text="0.5"
-            android:textColor="@color/white"
+            android:textColor="@color/off_black"
             android:textSize="16sp"/>
     </RelativeLayout>
 </LinearLayout>
