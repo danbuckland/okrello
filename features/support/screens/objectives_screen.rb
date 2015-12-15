@@ -2,11 +2,11 @@
 class ObjectivesScreen < Base
 
   def trait
-    'ObjectivesActivity'
+    "ListView id:'objs_list_objectives'"
   end
 
   def await
-    wait_for_activity(trait)
+    wait_for_element_exists(trait)
   end
 
   def get_objectives

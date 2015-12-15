@@ -44,4 +44,13 @@ class Trello < Base
     get_card_names_from_list(list_id).size
   end
 
+  def get_objectives(list_id)
+    card_title_array = get_card_names_from_list(list_id)
+    card_title_array.each do |card_title|
+      card_title.gsub!(/\s?\[\d{1}\.\d{1}\]/, "")
+      card_title.strip!
+    end
+    card_title_array
+  end
+
 end

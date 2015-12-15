@@ -13,4 +13,5 @@ end
 
 When(/^I view (Q\d\s?\d*)$/) do |quarter|
   @screen.main.select_quarter(quarter)
+  @screen.objectives.await
 end
