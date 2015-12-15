@@ -20,7 +20,7 @@
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/objs_list_cards">
+                android:id="@+id/objs_list_objectives">
             </ListView>
         </RelativeLayout>
     </LinearLayout>

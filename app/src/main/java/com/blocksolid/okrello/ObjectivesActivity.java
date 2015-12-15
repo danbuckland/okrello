@@ -46,7 +46,7 @@ public class ObjectivesActivity extends AppCompatActivity {
         objsProgressBar = (ProgressBar) findViewById(R.id.objs_progress);
         objsProgressBar.setVisibility(View.INVISIBLE);
 
-        listView = (ListView) findViewById(R.id.objs_list_cards);
+        listView = (ListView) findViewById(R.id.objs_list_objectives);
 
         listId = this.getIntent().getExtras().getString("listId");
 
