@@ -56,7 +56,7 @@ public class ObjectiveAdapter extends BaseAdapter {
 
             // create a new "Holder" with subviews
             holder = new ViewHolder();
-            holder.goalText = (TextView) convertView.findViewById(R.id.list_goal);
+            holder.goalText = (TextView) convertView.findViewById(R.id.list_objective);
             holder.scoreText = (TextView) convertView.findViewById(R.id.list_score);
             holder.scoreCircle = (ImageView) convertView.findViewById(R.id.list_score_circle);
 
