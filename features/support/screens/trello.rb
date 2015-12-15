@@ -7,7 +7,7 @@ class Trello < Base
   end
 
   # Return list names from Trello board as an array
-  def list_names
+  def get_list_names
     list_names = Array.new
     get_lists.each do |item|
       list_names << item['name']
@@ -17,11 +17,11 @@ class Trello < Base
 
   # Return number of lists on Trello board
   def no_of_lists
-    list_names.size
+    get_list_names.size
   end
 
   def get_list_id(list_name)
-    if list_names.include?(list_name)
+    if get_list_names.include?(list_name)
       get_lists.find {|h| h['name'] == list_name}['id']
     else
       raise "List \"#{list_name}\" does not exist"
