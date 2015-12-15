@@ -12,5 +12,5 @@ Then(/^I should see the name of each quarter that appears on the Trello board$/)
 end
 
 When(/^I view (Q\d\s?\d*)$/) do |quarter|
-  @screens.main.select_quarter(quarter)
+  @screen.main.select_quarter(quarter)
 end
