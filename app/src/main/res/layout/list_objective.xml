@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingRight="10dp"
-        android:id="@+id/list_goal"
+        android:id="@+id/list_objective"
         android:text="@string/list_objs_long_objective"
         android:ellipsize="end"
         android:lines="3"
