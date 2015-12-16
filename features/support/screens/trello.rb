@@ -46,11 +46,16 @@ class Trello < Base
 
   def get_objectives(list_id)
     card_title_array = get_card_names_from_list(list_id)
-    card_title_array.each do |card_title|
-      card_title.gsub!(/\s?\[\d{1}\.\d{1}\]/, "")
-      card_title.strip!
+    card_title_array.map do |card_title|
+      card_title.gsub(/\s?\[\d{1}\.\d{1}\]/, "").strip
     end
-    card_title_array
+  end
+
+  def get_objective_scores(list_id)
+    card_title_array = get_card_names_from_list(list_id)
+    card_title_array.map do |card_title|
+      card_title[/\[(\d{1}\.\d{1})\]/, 1]
+    end
   end
 
 end
