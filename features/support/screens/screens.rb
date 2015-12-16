@@ -3,4 +3,8 @@ class Screens < Base
 	def main
 		@main ||= page(MainScreen)
 	end
+
+	def objectives
+		@objectives ||= page(ObjectivesScreen)
+	end
 end

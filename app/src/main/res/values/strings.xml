@@ -2,4 +2,9 @@
     <string name="app_name">Okrello</string>
     <string name="main_welcome_message">Welcome to Okrello – Track your OKRs using Trello as a backend!</string>
     <string name="main_btn_refresh_lists">Refresh lists</string>
+    <string name="main_btn_get_cards">Get cards</string>
+    <string name="activity_objectives">Objectives</string>
+    <string name="objs_currently_showing">Q4 2015</string>
+    <string name="objs_btn_refresh_cards">Refresh cards</string>
+    <string name="list_objs_long_objective">This is a sample objective that is too long to continue to learn about development best practices to inform better manual and automated test practices</string>
 </resources>

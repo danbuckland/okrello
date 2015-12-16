@@ -7,13 +7,13 @@ end
 Before do |scenario|
 
   @base ||= page(Base)
-	@screens ||= page(Screens)
+	@screen ||= page(Screens)
   @trello ||= page(Trello)
 
   scenario = scenario.scenario_outline if scenario.respond_to?(:scenario_outline)
 
   feature = scenario.feature
-  if FeatureMemory.feature != feature || ENV['RESET_BETWEEN_SCENARIOS'] == '1'
+  if FeatureMemory.feature == nil || ENV['RESET_BETWEEN_SCENARIOS'] == '1'
     if ENV['RESET_BETWEEN_SCENARIOS'] == '1'
       log 'New scenario - reinstalling apps'
     else

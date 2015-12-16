@@ -9,4 +9,8 @@ class MainScreen < Base
     wait_for_activity(trait)
   end
 
+  def select_quarter(quarter)
+    tap_when_element_exists("* marked:'#{quarter}'")
+  end
+
 end

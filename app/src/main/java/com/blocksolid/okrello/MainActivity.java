@@ -1,9 +1,11 @@
 package com.blocksolid.okrello;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,7 +16,6 @@ import com.blocksolid.okrello.api.TrelloApi;
 import com.blocksolid.okrello.model.TrelloList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -22,15 +23,14 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    public static final String BASE_URL = "https://api.trello.com/1/";
+
     public static final String BOARD_ID = "5RMq1Nyb";
-    public static final String KEY = "cf2308ac2c68ab9a54037478108439e4";
 
     public static ProgressBar progressBar;
     public static Button refreshListsBtn;
-    public static List<TrelloList> trelloLists;
+    public static ArrayList<TrelloList> trelloLists;
     public static ListView listView;
 
     @Override
@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 getLists();
             }
         });
+
+        listView.setOnItemClickListener(this);
         getLists();
     }
 
@@ -59,20 +61,20 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrofit stuff starts here
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(TrelloApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
         // Define the request
-        final Call<List<TrelloList>> call = trelloApi.getLists(BOARD_ID, KEY);
+        final Call<ArrayList<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY);
 
         // Make the request
-        call.enqueue(new Callback<List<TrelloList>>() {
+        call.enqueue(new Callback<ArrayList<TrelloList>>() {
 
             @Override
-            public void onResponse(Response<List<TrelloList>> response, Retrofit retrofit) {
+            public void onResponse(Response<ArrayList<TrelloList>> response, Retrofit retrofit) {
                 trelloLists = response.body();
 
                 // Get list names from response and add each to a new array
@@ -96,5 +98,23 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Grab the ID of the selected Trello List (Quarter)
+        TrelloList trelloList = trelloLists.get(position);
+        String listId = trelloList.getId();
+        String listName = trelloList.getName();
+
+        // Intent to take the user to a new ObjectivesActivity
+        Intent objectivesIntent = new Intent(this, ObjectivesActivity.class);
+
+        // Pass across the list ID in the intent
+        objectivesIntent.putExtra("listId", listId);
+        objectivesIntent.putExtra("listName", listName);
+
+        // start the next Activity using the above intent
+        startActivity(objectivesIntent);
     }
 }

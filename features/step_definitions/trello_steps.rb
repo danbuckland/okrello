@@ -6,3 +6,8 @@
 Given(/^I have a Trello board with at least one list$/) do
   raise 'No lists on Trello board' unless @trello.no_of_lists > 0
 end
+
+Given(/^I have a Trello board with a list called "(.*?)" with at least one OKR$/) do |list_name|
+  list_id = @trello.get_list_id(list_name)
+  raise 'No cards in list' unless @trello.no_of_cards_in_list(list_id) > 0
+end
