@@ -1,5 +1,5 @@
 @view_objectives
-Feature: View objectives
+Feature: View Objectives
 
 In Trello, each card represents one OKR for one team member. Individuals set the
 card's title to be the Objective and append the title with "[0.0]" to represent
