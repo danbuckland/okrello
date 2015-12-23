@@ -3,7 +3,7 @@ class Trello < Base
 
   # Return lists from Trello board as JSON
   def get_lists
-    HTTParty.get("#{BASE_URL}boards/#{BOARD_ID}/lists?key=#{KEY}")
+    HTTParty.get("#{BASE_URL}boards/#{BOARD_ID}/lists?fields=name&key=#{KEY}")
   end
 
   # Return list names from Trello board as an array
@@ -29,7 +29,7 @@ class Trello < Base
   end
 
   def get_cards_from_list(list_id)
-    HTTParty.get("#{BASE_URL}lists/#{list_id}/cards?key=#{KEY}")
+    HTTParty.get("#{BASE_URL}lists/#{list_id}/cards?fields=name&key=#{KEY}")
   end
 
   def get_card_names_from_list(list_id)
