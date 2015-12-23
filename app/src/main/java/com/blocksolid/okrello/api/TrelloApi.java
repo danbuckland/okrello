@@ -23,10 +23,12 @@ public interface TrelloApi {
     // Get lists from board
     @GET("boards/{boardId}/lists")
     Call<ArrayList<TrelloList>> getLists(@Path("boardId") String boardId,
-                                    @Query("key") String key);
+                                         @Query("key") String key,
+                                         @Query("fields") String fields);
 
     // Get cards from list
     @GET("lists/{listId}/cards")
     Call<ArrayList<TrelloCard>> getCards(@Path("listId") String listId,
-                                    @Query("key") String key);
+                                         @Query("key") String key,
+                                         @Query("fields") String fields);
 }

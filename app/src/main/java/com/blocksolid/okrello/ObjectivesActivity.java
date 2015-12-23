@@ -69,7 +69,8 @@ public class ObjectivesActivity extends AppCompatActivity {
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
         // Define the request
-        final Call<ArrayList<TrelloCard>> call = trelloApi.getCards(listId, TrelloApi.KEY);
+        String fields = "name";
+        final Call<ArrayList<TrelloCard>> call = trelloApi.getCards(listId, TrelloApi.KEY, fields);
 
         // Make the request
         call.enqueue(new Callback<ArrayList<TrelloCard>>() {

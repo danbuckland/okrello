@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TrelloApi trelloApi = retrofit.create(TrelloApi.class);
 
         // Define the request
-        final Call<ArrayList<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY);
+        String fields = "name";
+        final Call<ArrayList<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY, fields);
 
         // Make the request
         call.enqueue(new Callback<ArrayList<TrelloList>>() {
