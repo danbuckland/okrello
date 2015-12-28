@@ -2,11 +2,13 @@
 
 An Android app for viewing and tracking OKRs using [Trello](https://trello.com/) as a backend.
 
+
 ## Documentation
 
 You can find more information about and follow along with the progress of this project by visiting the [Okrello Development](https://trello.com/b/WLms7hW7/okrello-development) Trello Board.
 
-### Building & Running
+
+## Building & Running
 
 Although it should be possible to build and run the project using any Android IDE, the project was built using Android Studio and therefore it's recommended to use Android Studio with the latest Android SDK tools.
 
@@ -65,6 +67,7 @@ The Cucumber tests query a Trello board directly through Trello's API to check t
 1. Build the Android project locally
 2. Launch an emulator or connect an Android device in debug mode
 3. Enter `calabash-android run app/build/outputs/apk/app-debug.apk` to install the built app and run the tests
+
 
 ## Copyright
 
