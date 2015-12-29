@@ -17,4 +17,8 @@ class ObjectivesScreen < Base
     query("ListView AppCompatTextView id:'list_score'", :text)
   end
 
+  def select_first_objective
+    tap_when_element_exists("ListView AppCompatTextView id:'list_objective' index:0")
+  end
+
 end
