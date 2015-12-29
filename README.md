@@ -40,7 +40,7 @@ e.g. For the Okrello Development board at https://trello.com/b/WLms7hW7/okrello-
 
 **Important Note:** Until [Authentication/Sign in](https://trello.com/c/KsMEb6qA) has been implemented, **Okrello** will only work with **Public** boards.
 
-### Running Tests
+## Running Tests
 
 This application was developed following principles of Test Driven Development (TDD) and Behaviour Driven Development (BDD) and has two sets of tests:
 
