@@ -7,14 +7,13 @@ An Android app for viewing and tracking OKRs using [Trello](https://trello.com/)
 
 You can find more information about this project and follow along with its progress by visiting the [Okrello Development](https://trello.com/b/WLms7hW7/okrello-development) Trello Board.
 
+**Okrello** is aimed at teams and individuals who are currently tracking OKRs through Trello, or who want to start tracking OKRs using Trello. **Okrello** is currently "read-only", i.e. it's not possible to edit OKRs and update scores through the application, therefore you'll need to create and update your OKRs directly through Trello.
 
 ## Building & Running
 
 Although it should be possible to build and run the project using any Android IDE, the project was built using Android Studio and therefore it's recommended to use Android Studio with the latest Android SDK tools.
 
 #### Setup Your Trello Board for Tracking OKRs
-
-**Okrello** is aimed at teams and individuals who are currently tracking OKRs through Trello, or who want to start tracking OKRs using Trello. **Okrello** is currently "read-only", i.e. it's not possible to edit OKRs and update scores through the application, therefore you'll need to create and update your OKRs directly through Trello.
 
 The application expects the following Trello board setup:
 
