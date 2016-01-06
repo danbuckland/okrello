@@ -1,5 +1,7 @@
 Then(/^I should see the Key Results for the first Objective in (Q\d\s?\d*)$/) do |quarter|
-  trello_key_results = @trello.get_key_results(@trello.get_first_card_id)
+  @screen.key_results.await
+  first_objective = @trello.get_first_card_id(@trello.get_list_id(quarter))
+  trello_key_results = @trello.get_key_results(first_objective)
   @base.wait_for_progress_to_complete
   app_key_results = @screen.key_results.get_key_results
   # Does not scroll the list to view everything so will fail if the Trello list
@@ -12,7 +14,9 @@ Then(/^I should see the Key Results for the first Objective in (Q\d\s?\d*)$/) do
 end
 
 Then(/^I should see the scores of each Key Result for the first Objective in (Q\d\s?\d*)$/) do |quarter|
-  trello_scores = @trello.get_Key_Results_scores(@trello.get_first_card_id)
+  @screen.key_results.await
+  first_objective = @trello.get_first_card_id(@trello.get_list_id(quarter))
+  trello_scores = @trello.get_key_results_scores(first_objective)
   @base.wait_for_progress_to_complete
   app_scores = @screen.key_results.get_scores
   # Does not scroll the list to view everything so will fail if the Trello list

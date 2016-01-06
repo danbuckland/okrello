@@ -7,4 +7,8 @@ class Screens < Base
 	def objectives
 		@objectives ||= page(ObjectivesScreen)
 	end
+
+	def key_results
+		@key_results ||= page(KeyResultsScreen)
+	end
 end
