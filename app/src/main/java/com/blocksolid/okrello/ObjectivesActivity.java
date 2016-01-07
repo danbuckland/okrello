@@ -1,9 +1,11 @@
 package com.blocksolid.okrello;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.blocksolid.okrello.api.TrelloApi;
 import com.blocksolid.okrello.model.TrelloCard;
+import com.blocksolid.okrello.model.TrelloList;
 
 import java.util.ArrayList;
 
@@ -23,11 +26,10 @@ import retrofit.Retrofit;
 /**
  * Created by Dan Buckland on 06/12/2015.
  */
-public class ObjectivesActivity extends AppCompatActivity {
+public class ObjectivesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     public static ArrayList<TrelloCard> trelloCards;
     public static ListView listView;
-    public static Button refreshCardsBtn;
     public static ProgressBar objsProgressBar;
     public String listId;
     public String listName;
@@ -52,6 +54,7 @@ public class ObjectivesActivity extends AppCompatActivity {
 
         objectiveAdapter = new ObjectiveAdapter(this, getLayoutInflater());
         listView.setAdapter(objectiveAdapter);
+        listView.setOnItemClickListener(this);
 
         getCards();
     }
@@ -92,5 +95,23 @@ public class ObjectivesActivity extends AppCompatActivity {
                 objsProgressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Grab the ID of the selected Trello List (Quarter)
+        TrelloCard trelloCard = trelloCards.get(position);
+        String cardId = trelloCard.getId();
+        String cardName = trelloCard.getName();
+
+        // Intent to take the user to a new KeyResultsActivity
+        Intent keyResultsIntent = new Intent(this, KeyResultsActivity.class);
+
+        // Pass across the list ID in the intent
+        keyResultsIntent.putExtra("cardId", cardId);
+        keyResultsIntent.putExtra("cardName", cardName);
+
+        // start the next Activity using the above intent
+        startActivity(keyResultsIntent);
     }
 }
