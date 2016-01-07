@@ -22,10 +22,19 @@
         <activity
             android:name=".ObjectivesActivity"
             android:label="@string/activity_objectives"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".KeyResultsActivity"
+            android:label="@string/activity_key_results"
+            android:parentActivityName=".ObjectivesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ObjectivesActivity"/>
         </activity>
     </application>
 
