@@ -6,7 +6,7 @@ class MainScreen < Base
   end
 
   def await
-    wait_for_activity(trait)
+    wait_for_element_exists(trait, :timeout => 5, :screenshot_on_error => false)
   end
 
   def select_quarter(quarter)

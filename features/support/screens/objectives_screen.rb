@@ -6,7 +6,7 @@ class ObjectivesScreen < Base
   end
 
   def await
-    wait_for_element_exists(trait)
+    wait_for_element_exists(trait, :timeout => 5, :screenshot_on_error => false)
   end
 
   def get_objectives
