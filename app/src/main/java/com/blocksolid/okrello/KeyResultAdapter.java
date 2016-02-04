@@ -30,7 +30,10 @@ public class KeyResultAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mTrelloCheckItems.size();
+        if (mTrelloCheckItems != null) {
+            return mTrelloCheckItems.size();
+        }
+        return 0;
     }
 
     @Override
