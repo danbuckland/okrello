@@ -8,22 +8,22 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.blocksolid.okrello.api.ServiceGenerator;
 import com.blocksolid.okrello.api.TrelloApi;
 import com.blocksolid.okrello.model.TrelloCheckItem;
 
 import java.util.ArrayList;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Dan Buckland on 06/12/2015.
  */
 public class KeyResultsActivity extends AppCompatActivity {
 
+    public static TrelloApi trelloApi;
     public static ArrayList<TrelloCheckItem> trelloCheckItems;
     public static ListView listView;
     public static ProgressBar keyresProgressBar;
@@ -36,6 +36,7 @@ public class KeyResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_key_results);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        trelloApi = ServiceGenerator.createService(TrelloApi.class);
 
         // Set Activity title to the selected list name
         cardName = this.getIntent().getExtras().getString("cardName");
@@ -65,14 +66,6 @@ public class KeyResultsActivity extends AppCompatActivity {
 
         String checklistId = getKeyResultsChecklistId();
 
-        // Retrofit stuff starts here
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(TrelloApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        TrelloApi trelloApi = retrofit.create(TrelloApi.class);
-
         // Define the request
         String fields = "name";
         final Call<ArrayList<TrelloCheckItem>> call = trelloApi.getCheckItems(checklistId, TrelloApi.KEY, fields);
@@ -81,7 +74,7 @@ public class KeyResultsActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<TrelloCheckItem>>() {
 
             @Override
-            public void onResponse(Response<ArrayList<TrelloCheckItem>> response, Retrofit retrofit) {
+            public void onResponse(Call<ArrayList<TrelloCheckItem>> arrayListCall, Response<ArrayList<TrelloCheckItem>> response) {
                 trelloCheckItems = response.body();
                 // Update data in custom view adapter
                 keyResultAdapter.updateData(trelloCheckItems);
@@ -90,7 +83,7 @@ public class KeyResultsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<ArrayList<TrelloCheckItem>> arrayListCall, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("Retrofit", t.getMessage());
