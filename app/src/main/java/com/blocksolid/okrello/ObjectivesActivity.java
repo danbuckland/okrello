@@ -93,6 +93,7 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // Grab the ID of the selected Trello List (Quarter)
         TrelloCard trelloCard = trelloCards.get(position);
+        String checklistId = trelloCard.getKeyResultsChecklistId();
         String cardId = trelloCard.getId();
         String cardName = trelloCard.getName();
 
@@ -102,6 +103,7 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
         // Pass across the list ID in the intent
         keyResultsIntent.putExtra("cardId", cardId);
         keyResultsIntent.putExtra("cardName", cardName);
+        keyResultsIntent.putExtra("checklistId", checklistId);
 
         // start the next Activity using the above intent
         startActivity(keyResultsIntent);

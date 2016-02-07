@@ -29,6 +29,7 @@ public class KeyResultsActivity extends AppCompatActivity {
     public static ProgressBar keyresProgressBar;
     public String cardId;
     public String cardName;
+    public String checklistId;
     KeyResultAdapter keyResultAdapter;
 
     @Override
@@ -40,6 +41,7 @@ public class KeyResultsActivity extends AppCompatActivity {
 
         // Set Activity title to the selected list name
         cardName = this.getIntent().getExtras().getString("cardName");
+        checklistId = this.getIntent().getExtras().getString("checklistId");
         setTitle(cardName);
 
         keyresProgressBar = (ProgressBar) findViewById(R.id.keyres_progress);
@@ -55,16 +57,9 @@ public class KeyResultsActivity extends AppCompatActivity {
         getKeyResults();
     }
 
-    private String getKeyResultsChecklistId() {
-        // TODO add logic and unit tests to deduce which checklist contains key results
-        return "5665991c7c27445d260de813";
-    }
-
     private void getKeyResults() {
         // Show progress indicator while working
         keyresProgressBar.setVisibility(View.VISIBLE);
-
-        String checklistId = getKeyResultsChecklistId();
 
         // Define the request
         String fields = "name";

@@ -68,4 +68,9 @@ public class TrelloCard {
         return color;
     }
 
+    public String getKeyResultsChecklistId() {
+
+        return "5665991c7c27445d260de813";
+    }
+
 }
