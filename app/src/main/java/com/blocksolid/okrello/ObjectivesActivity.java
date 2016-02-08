@@ -95,15 +95,15 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
         TrelloCard trelloCard = trelloCards.get(position);
         String checklistId = trelloCard.getKeyResultsChecklistId();
         String cardId = trelloCard.getId();
-        String cardName = trelloCard.getName();
+        String objective = trelloCard.getObjective();
 
         // Intent to take the user to a new KeyResultsActivity
         Intent keyResultsIntent = new Intent(this, KeyResultsActivity.class);
 
         // Pass across the list ID in the intent
         keyResultsIntent.putExtra("cardId", cardId);
-        keyResultsIntent.putExtra("cardName", cardName);
         keyResultsIntent.putExtra("checklistId", checklistId);
+        keyResultsIntent.putExtra("objective", objective);
 
         // start the next Activity using the above intent
         startActivity(keyResultsIntent);

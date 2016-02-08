@@ -28,7 +28,7 @@ public class KeyResultsActivity extends AppCompatActivity {
     public static ListView listView;
     public static ProgressBar keyresProgressBar;
     public String cardId;
-    public String cardName;
+    public String objective;
     public String checklistId;
     KeyResultAdapter keyResultAdapter;
 
@@ -40,9 +40,9 @@ public class KeyResultsActivity extends AppCompatActivity {
         trelloApi = ServiceGenerator.createService(TrelloApi.class);
 
         // Set Activity title to the selected list name
-        cardName = this.getIntent().getExtras().getString("cardName");
+        objective = this.getIntent().getExtras().getString("objective");
         checklistId = this.getIntent().getExtras().getString("checklistId");
-        setTitle(cardName);
+        setTitle(objective);
 
         keyresProgressBar = (ProgressBar) findViewById(R.id.keyres_progress);
         keyresProgressBar.setVisibility(View.INVISIBLE);
