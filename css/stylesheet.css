@@ -89,7 +89,7 @@ a {
 .project-name {
   font-family: 'Molle', cursive;
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 @media screen and (min-width: 64em) {
   .project-name {
