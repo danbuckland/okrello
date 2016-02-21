@@ -1,0 +1,26 @@
+# Site settings
+title: Okrello
+tagline: An Android app for tracking OKRs using Trello as a backend
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://okrello.xyz" # the base hostname & protocol for your site
+color-primary: "#1976D2"
+color-secondary: "#1976D2"
+
+# contact
+author:
+  name: Dan Buckland
+  url: http://github.com/danbuckland
+
+twitter_username: danbuckland
+github_username:  danbuckland
+github_url: "https://github.com/danbuckland/okrello"
+
+# Gems
+gems:
+  - jekyll-paginate
+
+# Others
+markdown: redcarpet
+
+# Exclude Stylus files, nodemodules, and gulpfile
+exclude: [node_modules, gulpfile.js, styl, npm-debug.log]
