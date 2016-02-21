@@ -1,5 +1,7 @@
+---
+---
 {
- "name": "Okrello",
+ "name": "{{ site.title }}",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
