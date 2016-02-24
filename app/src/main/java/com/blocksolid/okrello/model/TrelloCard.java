@@ -2,6 +2,7 @@ package com.blocksolid.okrello.model;
 
 import android.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,16 @@ public class TrelloCard {
 
     private String id;
     private String name;
+    private ArrayList<TrelloChecklist> checklists;
+
+    public ArrayList<TrelloChecklist> getChecklists() {
+        return checklists;
+    }
+
+    public void setChecklists(ArrayList<TrelloChecklist> checklists) {
+        this.checklists = checklists;
+    }
+
 
     public String getId() {
         return id;
@@ -20,6 +31,8 @@ public class TrelloCard {
     public String getName() {
         return name;
     }
+
+
 
     public void setName(String name) {
         // TODO remove this after unit tests have been updated to use a mock backend
@@ -68,9 +81,5 @@ public class TrelloCard {
         return color;
     }
 
-    public String getKeyResultsChecklistId() {
-
-        return "5665991c7c27445d260de813";
-    }
 
 }

@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.blocksolid.okrello.api.ServiceGenerator;
 import com.blocksolid.okrello.api.TrelloApi;
+import com.blocksolid.okrello.model.TrelloCard;
 import com.blocksolid.okrello.model.TrelloCheckItem;
+import com.blocksolid.okrello.model.TrelloChecklist;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,9 @@ import retrofit2.Response;
 public class KeyResultsActivity extends AppCompatActivity {
 
     public static TrelloApi trelloApi;
-    public static ArrayList<TrelloCheckItem> trelloCheckItems;
+    public static ArrayList<TrelloChecklist> trelloChecklists;
+    public static ArrayList<TrelloCheckItem> keyResults;
+    public static TrelloCard trelloCard;
     public static ListView listView;
     public static ProgressBar keyresProgressBar;
     public String cardId;
@@ -63,27 +67,52 @@ public class KeyResultsActivity extends AppCompatActivity {
 
         // Define the request
         String fields = "name";
-        final Call<ArrayList<TrelloCheckItem>> call = trelloApi.getCheckItems(checklistId, TrelloApi.KEY, fields);
+        final Call<ArrayList<TrelloChecklist>> call = trelloApi.getChecklists(cardId, TrelloApi.KEY, fields);
 
         // Make the request
-        call.enqueue(new Callback<ArrayList<TrelloCheckItem>>() {
+        call.enqueue(new Callback<ArrayList<TrelloChecklist>>() {
 
             @Override
-            public void onResponse(Call<ArrayList<TrelloCheckItem>> arrayListCall, Response<ArrayList<TrelloCheckItem>> response) {
-                trelloCheckItems = response.body();
+            public void onResponse(Call<ArrayList<TrelloChecklist>> cardCall, Response<ArrayList<TrelloChecklist>> response) {
+                trelloChecklists = response.body();
                 // Update data in custom view adapter
-                keyResultAdapter.updateData(trelloCheckItems);
+                // TODO decide which checklist is the correct one to use
+                // TODO extract this method out to somewhere else - not sure where
+
+                // Populate an ArrayList of checkItems called keyResults
+                keyResults = getKeyResultsCheckitems(trelloChecklists);
+                // Update data in custom view adapter
+                keyResultAdapter.updateData(keyResults);
                 // Hide progress indicator when done
                 keyresProgressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<TrelloCheckItem>> arrayListCall, Throwable t) {
+            public void onFailure(Call<ArrayList<TrelloChecklist>> cardCall, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("Retrofit", t.getMessage());
                 keyresProgressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    public ArrayList<TrelloCheckItem> getKeyResultsCheckitems(ArrayList<TrelloChecklist> trelloChecklists) {
+        ArrayList<TrelloCheckItem> keyResults = null;
+        if (trelloChecklists.size() == 1) {
+            // If there's only one checklist, use that checklist as Key Results
+            keyResults = trelloChecklists.get(0).getTrelloCheckItems();
+        } else if (trelloChecklists.size() > 1) {
+            // When card has more than one checklist belonging to a card
+            // only checkItems belonging to the checklist called "Key Results" are displayed.
+            for (TrelloChecklist checklist : trelloChecklists) {
+                if (checklist.getName().equals("Key Results")) {
+                    keyResults = checklist.getTrelloCheckItems();
+                }
+            }
+        }
+        // When there is no checklist called "Key Results" belonging to a card with
+        // multiple checklists, then no Key Results are displayed.
+        return keyResults;
     }
 }

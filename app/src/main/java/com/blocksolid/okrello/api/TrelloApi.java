@@ -35,15 +35,9 @@ public interface TrelloApi {
                                          @Query("fields") String fields);
 
 
-    // Get checklists from card to identify Key Results
-    @GET("cards/{cardId}/checklists?checkItems=none")
+    // Get checklists and checkItems from card to identify Key Results
+    @GET("cards/{cardId}/checklists")
     Call<ArrayList<TrelloChecklist>> getChecklists(@Path("cardId") String cardId,
-                                                   @Query("key") String key,
-                                                   @Query("fields") String fields);
-
-    // Get checkItems from specified checklist to use as Key Results
-    @GET("checklists/{checklistId}/checkItems")
-    Call<ArrayList<TrelloCheckItem>> getCheckItems(@Path("checklistId") String checklistId,
                                                    @Query("key") String key,
                                                    @Query("fields") String fields);
 }
