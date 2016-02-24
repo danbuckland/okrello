@@ -8,3 +8,5 @@
 Gemfile.lock
 test_servers
 crudecumber_results.html
+_site
+node_modules
