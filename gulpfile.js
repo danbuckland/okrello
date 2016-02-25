@@ -7,7 +7,7 @@ var gulp        = require('gulp'),
 // Watch for file changes
 gulp.task('watch', function() {
   gulp.watch(['styl/*.styl'], ['stylus']);
-  gulp.watch(['*.html', '_includes/*.html', '_layouts/*.html', '*.md', '_posts/*', '_config.yml', 'favicons/*', '*.xml', '*.png', '*.ico'], ['jekyll-rebuild']);
+  gulp.watch(['*.html', '_includes/*.html', '_layouts/*.html', '*.md', '_posts/*', '_config.yml', 'favicons/*', '*.xml', '*.png', '*.ico'], ['rebuild']);
 })
 
 // Clean built files in '_site' directory
@@ -17,14 +17,14 @@ gulp.task('clean', function() {
 });
 
 // Build Jekyll
-gulp.task('jekyll-build', function (done) {
+gulp.task('build', function (done) {
     browserSync.notify('Building Jekyll');
     return cp.spawn('jekyll', ['build'], {stdio: 'inherit'})
         .on('close', done);
 });
 
 // Rebuild Jekyll and reload
-gulp.task('jekyll-rebuild', ['jekyll-build'], function () {
+gulp.task('rebuild', ['build'], function () {
     browserSync.reload();
 });
 
@@ -40,7 +40,7 @@ gulp.task('stylus', function() {
 });
 
 // Serve website
-gulp.task('serve', ['jekyll-build'], function () {
+gulp.task('serve', ['build'], function () {
     browserSync.init({server: {baseDir: '_site/'}});
 });
 
