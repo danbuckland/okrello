@@ -1,3 +1,13 @@
 _site
 node_modules/
 npm-debug.log
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+Gemfile.lock
+test_servers
+/app
