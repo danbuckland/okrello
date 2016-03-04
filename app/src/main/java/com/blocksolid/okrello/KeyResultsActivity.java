@@ -99,20 +99,30 @@ public class KeyResultsActivity extends AppCompatActivity {
 
     public ArrayList<TrelloCheckItem> getKeyResultsCheckitems(ArrayList<TrelloChecklist> trelloChecklists) {
         ArrayList<TrelloCheckItem> keyResults = null;
+        int position = getKeyResultsChecklistPosition(trelloChecklists);
+
+        if (position >= 0) {
+            keyResults = trelloChecklists.get(position).getTrelloCheckItems();
+        }
+        return keyResults;
+    }
+
+    public int getKeyResultsChecklistPosition(ArrayList<TrelloChecklist> trelloChecklists) {
         if (trelloChecklists.size() == 1) {
             // If there's only one checklist, use that checklist as Key Results
-            keyResults = trelloChecklists.get(0).getTrelloCheckItems();
+            return 0;
         } else if (trelloChecklists.size() > 1) {
             // When card has more than one checklist belonging to a card
             // only checkItems belonging to the checklist called "Key Results" are displayed.
-            for (TrelloChecklist checklist : trelloChecklists) {
-                if (checklist.getName().equals("Key Results")) {
-                    keyResults = checklist.getTrelloCheckItems();
+            for (int i = 0; i < trelloChecklists.size(); i++) {
+                String checklistName = trelloChecklists.get(i).getName();
+                if (checklistName.equals("Key Results")) {
+                    return i;
                 }
             }
         }
         // When there is no checklist called "Key Results" belonging to a card with
         // multiple checklists, then no Key Results are displayed.
-        return keyResults;
+        return -1;
     }
 }
