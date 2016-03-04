@@ -81,5 +81,23 @@ public class TrelloCard {
         return color;
     }
 
+    public int getKeyResultsChecklistPosition() {
+        if (checklists.size() == 1) {
+            // If there's only one checklist, use that checklist as Key Results
+            return 0;
+        } else if (checklists.size() > 1) {
+            // When card has more than one checklist belonging to a card
+            // only checkItems belonging to the checklist called "Key Results" are displayed.
+            for (int i = 0; i < checklists.size(); i++) {
+                String checklistName = checklists.get(i).getName();
+                if (checklistName.equals("Key Results")) {
+                    return i;
+                }
+            }
+        }
+        // When there is no checklist called "Key Results" belonging to a card with
+        // multiple checklists, then no Key Results are displayed.
+        return -1;
+    }
 
 }
