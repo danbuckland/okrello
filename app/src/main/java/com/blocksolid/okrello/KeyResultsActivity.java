@@ -26,7 +26,6 @@ import retrofit2.Response;
 public class KeyResultsActivity extends AppCompatActivity {
 
     public static TrelloApi trelloApi;
-    public static ArrayList<TrelloChecklist> trelloChecklists;
     public static ArrayList<TrelloCheckItem> keyResults;
     public static TrelloCard trelloCard;
     public static ListView listView;
@@ -58,6 +57,8 @@ public class KeyResultsActivity extends AppCompatActivity {
         keyResultAdapter = new KeyResultAdapter(this, getLayoutInflater());
         listView.setAdapter(keyResultAdapter);
 
+        trelloCard = new TrelloCard();
+
         getKeyResults();
     }
 
@@ -74,13 +75,9 @@ public class KeyResultsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<ArrayList<TrelloChecklist>> cardCall, Response<ArrayList<TrelloChecklist>> response) {
-                trelloChecklists = response.body();
-                // Update data in custom view adapter
-                // TODO decide which checklist is the correct one to use
-                // TODO extract this method out to somewhere else - not sure where
-
+                trelloCard.setChecklists(response.body());
                 // Populate an ArrayList of checkItems called keyResults
-                keyResults = getKeyResultsCheckitems(trelloChecklists);
+                keyResults = getKeyResultsCheckitems(trelloCard);
                 // Update data in custom view adapter
                 keyResultAdapter.updateData(keyResults);
                 // Hide progress indicator when done
@@ -97,32 +94,14 @@ public class KeyResultsActivity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<TrelloCheckItem> getKeyResultsCheckitems(ArrayList<TrelloChecklist> trelloChecklists) {
+    public ArrayList<TrelloCheckItem> getKeyResultsCheckitems(TrelloCard trelloCard) {
+        // Initialise keyResults ArrayList as null to be returned if there are no keyResults
         ArrayList<TrelloCheckItem> keyResults = null;
-        int position = getKeyResultsChecklistPosition(trelloChecklists);
-
-        if (position >= 0) {
-            keyResults = trelloChecklists.get(position).getTrelloCheckItems();
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        if (position >= 0) { // If a suitable Key Results checklist is found
+            // Get checkItems to use as Key Results from that checklist
+            keyResults = trelloCard.getChecklists().get(position).getTrelloCheckItems();
         }
         return keyResults;
-    }
-
-    public int getKeyResultsChecklistPosition(ArrayList<TrelloChecklist> trelloChecklists) {
-        if (trelloChecklists.size() == 1) {
-            // If there's only one checklist, use that checklist as Key Results
-            return 0;
-        } else if (trelloChecklists.size() > 1) {
-            // When card has more than one checklist belonging to a card
-            // only checkItems belonging to the checklist called "Key Results" are displayed.
-            for (int i = 0; i < trelloChecklists.size(); i++) {
-                String checklistName = trelloChecklists.get(i).getName();
-                if (checklistName.equals("Key Results")) {
-                    return i;
-                }
-            }
-        }
-        // When there is no checklist called "Key Results" belonging to a card with
-        // multiple checklists, then no Key Results are displayed.
-        return -1;
     }
 }
