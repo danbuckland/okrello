@@ -287,7 +287,12 @@ public class TrelloCardTest {
     }
 
 
+
     // Tests for getKeyResultsChecklistPosition method
+    //
+    // This whole section is not really needed as it's all covered by the tests for the
+    // getKeyResultsCheckItems method. Seeing as these were written first however, it seems silly to
+    // delete them!
     @Test
     public void getKeyResultsChecklistPosition_cardWithNoChecklists() throws Exception {
         // A Trello card with no checklists should return -1
@@ -540,5 +545,230 @@ public class TrelloCardTest {
         assertEquals("key results", keyResultsChecklist.getName());
     }
 
+
+
     // Tests for getKeyResultsCheckItems method
+    @Test
+    public void getKeyResultsCheckItems_cardWith1Checklist_returnsCheckItemsArray() throws Exception {
+        // A Trello card with only one Checklist should return that Checklist's CheckItems to be
+        // used as Key Results
+
+        // Create test CheckItems
+        final TrelloCheckItem checkItemX1 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX2 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX3 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX4 = new TrelloCheckItem();
+        checkItemX1.setName("Example key result one [0.1]");
+        checkItemX2.setName("Example key result two [0.2]");
+        checkItemX3.setName("Example key result three [0.3]");
+        checkItemX4.setName("Example key result four [0.4]");
+
+        // Add test CheckItems to array of CheckItems
+        ArrayList<TrelloCheckItem> checkItemsX = new ArrayList<TrelloCheckItem>() {{
+            add(checkItemX1);
+            add(checkItemX2);
+            add(checkItemX3);
+            add(checkItemX4);
+        }};
+
+        // Add arrays of CheckItems to test Checklists
+        final TrelloChecklist checklistX = new TrelloChecklist();
+        checklistX.setName("Checklist");
+        checklistX.setCheckItems(checkItemsX);
+
+        // Add test Checklists to array of Checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklistX);
+        }};
+
+        // Add array of Checklists to TrelloCard
+        trelloCard.setChecklists(checklists);
+
+        ArrayList<TrelloCheckItem> keyResults = trelloCard.getKeyResultsCheckitems();
+
+        assertEquals(checkItemsX, keyResults);
+        assertEquals(4, keyResults.size());
+    }
+
+    @Test
+    public void getKeyResultsCheckItems_cardWith2Checklists1NamedKeyResults_returnsCheckItemsArray() throws Exception {
+        // A Trello card with more than one Checklist should return CheckItems only for the
+        // Checklist named Key Results
+
+        // Create test CheckItems
+        final TrelloCheckItem checkItemX1 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX2 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX3 = new TrelloCheckItem();
+        checkItemX1.setName("A random to do item");
+        checkItemX2.setName("A task to be done");
+        checkItemX3.setName("A reminder of something important!");
+
+        // Add test CheckItems to array of CheckItems
+        ArrayList<TrelloCheckItem> checkItemsX = new ArrayList<TrelloCheckItem>() {{
+            add(checkItemX1);
+            add(checkItemX2);
+            add(checkItemX3);
+        }};
+
+        final TrelloCheckItem checkItemY1 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY2 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY3 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY4 = new TrelloCheckItem();
+        checkItemY1.setName("Example key result one [0.1]");
+        checkItemY2.setName("Example key result two [0.2]");
+        checkItemY3.setName("Example key result three [0.3]");
+        checkItemY4.setName("Example key result four [0.4]");
+
+        // Add test CheckItems to array of CheckItems
+        ArrayList<TrelloCheckItem> checkItemsY = new ArrayList<TrelloCheckItem>() {{
+            add(checkItemY1);
+            add(checkItemY2);
+            add(checkItemY3);
+            add(checkItemY4);
+        }};
+
+        // Add arrays of CheckItems to test Checklists
+        final TrelloChecklist checklistX = new TrelloChecklist();
+        checklistX.setName("To Do");
+        checklistX.setCheckItems(checkItemsX);
+
+        final TrelloChecklist checklistY = new TrelloChecklist();
+        checklistY.setName("Key Results");
+        checklistY.setCheckItems(checkItemsY);
+
+        // Add test Checklists to array of Checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklistX);
+            add(checklistY);
+        }};
+
+        // Add array of Checklists to TrelloCard
+        trelloCard.setChecklists(checklists);
+
+        ArrayList<TrelloCheckItem> keyResults = trelloCard.getKeyResultsCheckitems();
+
+        assertEquals(checkItemsY, keyResults);
+        assertEquals(4, keyResults.size());
+    }
+
+    @Test
+    public void getKeyResultsCheckItems_cardWith2Checklists0NamedKeyResults_returnsNull() throws Exception {
+        // A Trello card with more than one Checklist should return CheckItems only for the
+        // Checklist named Key Results
+
+        // Create test CheckItems
+        final TrelloCheckItem checkItemX1 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX2 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX3 = new TrelloCheckItem();
+        checkItemX1.setName("A random to do item");
+        checkItemX2.setName("A task to be done");
+        checkItemX3.setName("A reminder of something important!");
+
+        // Add test CheckItems to array of CheckItems
+        ArrayList<TrelloCheckItem> checkItemsX = new ArrayList<TrelloCheckItem>() {{
+            add(checkItemX1);
+            add(checkItemX2);
+            add(checkItemX3);
+        }};
+
+        final TrelloCheckItem checkItemY1 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY2 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY3 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY4 = new TrelloCheckItem();
+        checkItemY1.setName("Example key result one [0.1]");
+        checkItemY2.setName("Example key result two [0.2]");
+        checkItemY3.setName("Example key result three [0.3]");
+        checkItemY4.setName("Example key result four [0.4]");
+
+        // Add test CheckItems to array of CheckItems
+        ArrayList<TrelloCheckItem> checkItemsY = new ArrayList<TrelloCheckItem>() {{
+            add(checkItemY1);
+            add(checkItemY2);
+            add(checkItemY3);
+            add(checkItemY4);
+        }};
+
+        // Add arrays of CheckItems to test Checklists
+        final TrelloChecklist checklistX = new TrelloChecklist();
+        checklistX.setName("To Do");
+        checklistX.setCheckItems(checkItemsX);
+
+        final TrelloChecklist checklistY = new TrelloChecklist();
+        checklistY.setName("Checklist");
+        checklistY.setCheckItems(checkItemsY);
+
+        // Add test Checklists to array of Checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklistX);
+            add(checklistY);
+        }};
+
+        // Add array of Checklists to TrelloCard
+        trelloCard.setChecklists(checklists);
+
+        ArrayList<TrelloCheckItem> keyResults = trelloCard.getKeyResultsCheckitems();
+
+        assertEquals(null, keyResults);
+    }
+
+    @Test
+    public void getKeyResultsCheckItems_cardWith2ChecklistsBothNamedKeyResults_returnsCheckItemsArray() throws Exception {
+        // A Trello card with more than one checklist named Key Results should return CheckItems for
+        // the first checklist called Key Results only
+
+        // Create test CheckItems
+        final TrelloCheckItem checkItemX1 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX2 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemX3 = new TrelloCheckItem();
+        checkItemX1.setName("A random to do item");
+        checkItemX2.setName("A task to be done");
+        checkItemX3.setName("A reminder of something important!");
+
+        // Add test CheckItems to array of CheckItems
+        ArrayList<TrelloCheckItem> checkItemsX = new ArrayList<TrelloCheckItem>() {{
+            add(checkItemX1);
+            add(checkItemX2);
+            add(checkItemX3);
+        }};
+
+        final TrelloCheckItem checkItemY1 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY2 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY3 = new TrelloCheckItem();
+        final TrelloCheckItem checkItemY4 = new TrelloCheckItem();
+        checkItemY1.setName("Example key result one [0.1]");
+        checkItemY2.setName("Example key result two [0.2]");
+        checkItemY3.setName("Example key result three [0.3]");
+        checkItemY4.setName("Example key result four [0.4]");
+
+        // Add test CheckItems to array of CheckItems
+        ArrayList<TrelloCheckItem> checkItemsY = new ArrayList<TrelloCheckItem>() {{
+            add(checkItemY1);
+            add(checkItemY2);
+            add(checkItemY3);
+            add(checkItemY4);
+        }};
+
+        // Add arrays of CheckItems to test Checklists
+        final TrelloChecklist checklistX = new TrelloChecklist();
+        checklistX.setName("Key Results");
+        checklistX.setCheckItems(checkItemsX);
+
+        final TrelloChecklist checklistY = new TrelloChecklist();
+        checklistY.setName("Key Results");
+        checklistY.setCheckItems(checkItemsY);
+
+        // Add test Checklists to array of Checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklistX);
+            add(checklistY);
+        }};
+
+        // Add array of Checklists to TrelloCard
+        trelloCard.setChecklists(checklists);
+
+        ArrayList<TrelloCheckItem> keyResults = trelloCard.getKeyResultsCheckitems();
+
+        assertEquals(checkItemsX, keyResults);
+        assertEquals(3, keyResults.size());
+    }
 }

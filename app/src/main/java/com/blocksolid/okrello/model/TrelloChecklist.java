@@ -27,4 +27,8 @@ public class TrelloChecklist {
     public ArrayList<TrelloCheckItem> getTrelloCheckItems() {
         return checkItems;
     }
+
+    public void setCheckItems(ArrayList<TrelloCheckItem> checkItems) {
+        this.checkItems = checkItems;
+    }
 }
