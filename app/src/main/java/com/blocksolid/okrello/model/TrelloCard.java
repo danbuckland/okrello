@@ -101,7 +101,7 @@ public class TrelloCard {
             // only checkItems belonging to the checklist called "Key Results" are displayed.
             for (int i = 0; i < checklists.size(); i++) {
                 String checklistName = checklists.get(i).getName();
-                if (checklistName.equals("Key Results")) {
+                if (checklistName.equalsIgnoreCase("Key Results")) {
                     return i;
                 }
             }

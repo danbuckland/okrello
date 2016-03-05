@@ -2,6 +2,8 @@ package com.blocksolid.okrello.model;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 public class TrelloCardTest {
@@ -283,4 +285,260 @@ public class TrelloCardTest {
         String result = trelloCard.getObjective();
         assertEquals("This card title has three scores for some reason", result);
     }
+
+
+    // Tests for getKeyResultsChecklistPosition method
+    @Test
+    public void getKeyResultsChecklistPosition_cardWithNoChecklists() throws Exception {
+        // A Trello card with no checklists should return -1
+
+        ArrayList<TrelloChecklist> checklists = new ArrayList<>();
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+
+        assertEquals(0, checklists.size());
+        assertEquals(-1, position);;
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith1ChecklistNamedKeyResults() throws Exception {
+        // A Trello card with one checklist should always return that checklist
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        checklist1.setName("Key Results");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        // Get Key Results checklist object for additional assertions
+        TrelloChecklist keyResultsChecklist = trelloCard.getChecklists().get(position);
+
+        assertEquals(1, checklists.size());
+        assertEquals(0, position);
+        assertEquals("Key Results", keyResultsChecklist.getName());
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith1ChecklistNamedChecklist() throws Exception {
+        // A Trello card with one checklist should always return that checklist
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        checklist1.setName("Checklist");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        // Get Key Results checklist object for additional assertions
+        TrelloChecklist keyResultsChecklist = trelloCard.getChecklists().get(position);
+
+        assertEquals(1, checklists.size());
+        assertEquals(0, position);
+        assertEquals("Checklist", keyResultsChecklist.getName());
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith2Checklists1NamedKeyResults() throws Exception {
+        // A Trello card with more than one checklist should only return a checklist if there is one
+        // called "Key Results"
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        final TrelloChecklist checklist2 = new TrelloChecklist();
+        checklist1.setName("Checklist");
+        checklist2.setName("Key Results");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+            add(checklist2);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        // Get Key Results checklist object for additional assertions
+        TrelloChecklist keyResultsChecklist = trelloCard.getChecklists().get(position);
+
+        assertEquals(2, checklists.size());
+        assertEquals(1, position);
+        assertEquals("Key Results", keyResultsChecklist.getName());
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith2Checklists0NamedKeyResults() throws Exception {
+        // A Trello card with more than one checklist where none is named Key Results should not
+        // return any checklists
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        final TrelloChecklist checklist2 = new TrelloChecklist();
+        checklist1.setName("Ideas");
+        checklist2.setName("To do");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+            add(checklist2);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+
+        assertEquals(2, checklists.size());
+        assertEquals(-1, position);
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith2ChecklistsBothNamedKeyResults() throws Exception {
+        // A Trello card with more than one checklist named Key Results should return the first
+        // checklist called Key Results
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        final TrelloChecklist checklist2 = new TrelloChecklist();
+        checklist1.setName("Key Results");
+        checklist2.setName("Key Results");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+            add(checklist2);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        // Get Key Results checklist object for additional assertions
+        TrelloChecklist keyResultsChecklist = trelloCard.getChecklists().get(position);
+
+        assertEquals(2, checklists.size());
+        assertEquals(0, position);
+        assertEquals("Key Results", keyResultsChecklist.getName());
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith3Checklists2NamedKeyResults() throws Exception {
+        // A Trello card with more than one checklist named Key Results should return the first
+        // checklist called Key Results
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        final TrelloChecklist checklist2 = new TrelloChecklist();
+        final TrelloChecklist checklist3 = new TrelloChecklist();
+        checklist1.setName("Backlog");
+        checklist2.setName("Key Results");
+        checklist3.setName("Key Results");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+            add(checklist2);
+            add(checklist3);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        // Get Key Results checklist object for additional assertions
+        TrelloChecklist keyResultsChecklist = trelloCard.getChecklists().get(position);
+
+        assertEquals(3, checklists.size());
+        assertEquals(1, position);
+        assertEquals("Key Results", keyResultsChecklist.getName());
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith3Checklists1NamedKeyResultsUPPERCASE() throws Exception {
+        // A Trello card with more than one checklist should return the one named Key Results
+        // regardless of casing
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        final TrelloChecklist checklist2 = new TrelloChecklist();
+        final TrelloChecklist checklist3 = new TrelloChecklist();
+        checklist1.setName("STRETCH GOALS");
+        checklist2.setName("Tasks");
+        checklist3.setName("KEY RESULTS");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+            add(checklist2);
+            add(checklist3);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        // Get Key Results checklist object for additional assertions
+        TrelloChecklist keyResultsChecklist = trelloCard.getChecklists().get(position);
+
+        assertEquals(3, checklists.size());
+        assertEquals(2, position);
+        assertEquals("KEY RESULTS", keyResultsChecklist.getName());
+    }
+
+    @Test
+    public void getKeyResultsChecklistPosition_cardWith3Checklists1NamedKeyResultsLowercase() throws Exception {
+        // A Trello card with more than one checklist should return the one named Key Results
+        // regardless of casing
+
+        // Create test checklists
+        final TrelloChecklist checklist1 = new TrelloChecklist();
+        final TrelloChecklist checklist2 = new TrelloChecklist();
+        final TrelloChecklist checklist3 = new TrelloChecklist();
+        checklist1.setName("resources");
+        checklist2.setName("key results");
+        checklist3.setName("_blue sky ideas_");
+
+        // Add checklists to array of checklists
+        ArrayList<TrelloChecklist> checklists = new ArrayList<TrelloChecklist>() {{
+            add(checklist1);
+            add(checklist2);
+            add(checklist3);
+        }};
+
+        // Add checklists array to trelloCard object
+        trelloCard.setChecklists(checklists);
+
+        // Get the correct position of the Key Results checklist
+        int position = trelloCard.getKeyResultsChecklistPosition();
+        // Get Key Results checklist object for additional assertions
+        TrelloChecklist keyResultsChecklist = trelloCard.getChecklists().get(position);
+
+        assertEquals(3, checklists.size());
+        assertEquals(1, position);
+        assertEquals("key results", keyResultsChecklist.getName());
+    }
+
+    // Tests for getKeyResultsCheckItems method
 }
