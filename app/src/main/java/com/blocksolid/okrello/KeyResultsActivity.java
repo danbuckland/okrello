@@ -77,7 +77,7 @@ public class KeyResultsActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<TrelloChecklist>> cardCall, Response<ArrayList<TrelloChecklist>> response) {
                 trelloCard.setChecklists(response.body());
                 // Populate an ArrayList of checkItems called keyResults
-                keyResults = getKeyResultsCheckitems(trelloCard);
+                keyResults = trelloCard.getKeyResultsCheckitems();
                 // Update data in custom view adapter
                 keyResultAdapter.updateData(keyResults);
                 // Hide progress indicator when done
@@ -92,16 +92,5 @@ public class KeyResultsActivity extends AppCompatActivity {
                 keyresProgressBar.setVisibility(View.INVISIBLE);
             }
         });
-    }
-
-    public ArrayList<TrelloCheckItem> getKeyResultsCheckitems(TrelloCard trelloCard) {
-        // Initialise keyResults ArrayList as null to be returned if there are no keyResults
-        ArrayList<TrelloCheckItem> keyResults = null;
-        int position = trelloCard.getKeyResultsChecklistPosition();
-        if (position >= 0) { // If a suitable Key Results checklist is found
-            // Get checkItems to use as Key Results from that checklist
-            keyResults = trelloCard.getChecklists().get(position).getTrelloCheckItems();
-        }
-        return keyResults;
     }
 }

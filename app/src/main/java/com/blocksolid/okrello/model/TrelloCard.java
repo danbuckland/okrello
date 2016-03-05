@@ -81,6 +81,17 @@ public class TrelloCard {
         return color;
     }
 
+    public ArrayList<TrelloCheckItem> getKeyResultsCheckitems() {
+        // Initialise keyResults ArrayList as null to be returned if there are no keyResults
+        ArrayList<TrelloCheckItem> keyResults = null;
+        int position = getKeyResultsChecklistPosition();
+        if (position >= 0) { // If a suitable Key Results checklist is found
+            // Get checkItems to use as Key Results from that checklist
+            keyResults = getChecklists().get(position).getTrelloCheckItems();
+        }
+        return keyResults;
+    }
+
     public int getKeyResultsChecklistPosition() {
         if (checklists.size() == 1) {
             // If there's only one checklist, use that checklist as Key Results
