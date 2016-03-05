@@ -12,16 +12,17 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.blocksolid.okrello.api.ServiceGenerator;
 import com.blocksolid.okrello.api.TrelloApi;
 import com.blocksolid.okrello.model.TrelloList;
+import com.facebook.stetho.Stetho;
 
 import java.util.ArrayList;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -32,11 +33,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static Button refreshListsBtn;
     public static ArrayList<TrelloList> trelloLists;
     public static ListView listView;
+    public static TrelloApi trelloApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Stetho.initializeWithDefaults(this);
+
+        trelloApi = ServiceGenerator.createService(TrelloApi.class);
 
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         progressBar.setVisibility(View.INVISIBLE);
@@ -59,22 +64,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Show progress indicator while working
         progressBar.setVisibility(View.VISIBLE);
 
-        // Retrofit stuff starts here
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(TrelloApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        TrelloApi trelloApi = retrofit.create(TrelloApi.class);
-
-        // Define the request
-        final Call<ArrayList<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY);
+        String fields = "name";
+        final Call<ArrayList<TrelloList>> call = trelloApi.getLists(BOARD_ID, TrelloApi.KEY, fields);
 
         // Make the request
         call.enqueue(new Callback<ArrayList<TrelloList>>() {
 
             @Override
-            public void onResponse(Response<ArrayList<TrelloList>> response, Retrofit retrofit) {
+            public void onResponse(Call<ArrayList<TrelloList>> arrayListCall, Response<ArrayList<TrelloList>> response) {
                 trelloLists = response.body();
 
                 // Get list names from response and add each to a new array
@@ -91,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<ArrayList<TrelloList>> arrayListCall, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("Retrofit", t.getMessage());

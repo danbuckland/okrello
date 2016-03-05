@@ -41,6 +41,8 @@ To use the app with your own Trello board, you'll need to change the *BOARD_ID* 
 1. Open the project in Android Studio
 2. Open the **MainActivity** class and find the *BOARD_ID* constant
 3. Replace the current string, "5RMq1Nyb", with your own copied **Board ID**
+4. Sync Gradle by selecting **Sync Project with Gradle Files** in Android Studio
+5. Select **Run** and choose an emulator or physical device to deploy to
 
 ## Running Tests
 

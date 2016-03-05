@@ -23,3 +23,7 @@ Then(/^I should see the score of each OKR in (Q\d\s?\d*)$/) do |quarter|
     raise 'Scores displayed incorrectly in app'
   end
 end
+
+When(/^I select the first Objective$/) do
+  @screen.objectives.select_first_objective
+end

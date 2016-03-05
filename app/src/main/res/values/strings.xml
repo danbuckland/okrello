@@ -7,4 +7,6 @@
     <string name="objs_currently_showing">Q4 2015</string>
     <string name="objs_btn_refresh_cards">Refresh cards</string>
     <string name="list_objs_long_objective">This is a sample objective that is too long to continue to learn about development best practices to inform better manual and automated test practices</string>
+    <string name="list_keyres_long_key_result">This is a sample key result that is too long to continue to learn about development best practices to inform better manual and automated test practices</string>
+    <string name="activity_key_results">Key Results</string>
 </resources>

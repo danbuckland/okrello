@@ -7,7 +7,7 @@ the team each quarter with the current/active quarter in the left-most position.
 
 As a member of a team tracking quarterly OKRs on a Trello board,
 I want to see each quarter represented in an application on my phone,
-so that I can navigate betwwen each quarter's OKRs.
+so that I can navigate between each quarter's OKRs.
 
   Background: Launch the application to the Main screen
     Given I have a Trello board with at least one list

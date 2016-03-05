@@ -2,6 +2,7 @@ package com.blocksolid.okrello.model;
 
 import android.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,16 @@ public class TrelloCard {
 
     private String id;
     private String name;
+    private ArrayList<TrelloChecklist> checklists;
+
+    public ArrayList<TrelloChecklist> getChecklists() {
+        return checklists;
+    }
+
+    public void setChecklists(ArrayList<TrelloChecklist> checklists) {
+        this.checklists = checklists;
+    }
+
 
     public String getId() {
         return id;
@@ -20,6 +31,8 @@ public class TrelloCard {
     public String getName() {
         return name;
     }
+
+
 
     public void setName(String name) {
         // TODO remove this after unit tests have been updated to use a mock backend
@@ -66,6 +79,36 @@ public class TrelloCard {
             }
         }
         return color;
+    }
+
+    public ArrayList<TrelloCheckItem> getKeyResultsCheckitems() {
+        // Initialise keyResults ArrayList as null to be returned if there are no keyResults
+        ArrayList<TrelloCheckItem> keyResults = null;
+        int position = getKeyResultsChecklistPosition();
+        if (position >= 0) { // If a suitable Key Results checklist is found
+            // Get checkItems to use as Key Results from that checklist
+            keyResults = getChecklists().get(position).getTrelloCheckItems();
+        }
+        return keyResults;
+    }
+
+    public int getKeyResultsChecklistPosition() {
+        if (checklists.size() == 1) {
+            // If there's only one checklist, use that checklist as Key Results
+            return 0;
+        } else if (checklists.size() > 1) {
+            // When card has more than one checklist belonging to a card
+            // only checkItems belonging to the checklist called "Key Results" are displayed.
+            for (int i = 0; i < checklists.size(); i++) {
+                String checklistName = checklists.get(i).getName();
+                if (checklistName.equalsIgnoreCase("Key Results")) {
+                    return i;
+                }
+            }
+        }
+        // When there is no checklist called "Key Results" belonging to a card with
+        // multiple checklists, then no Key Results are displayed.
+        return -1;
     }
 
 }

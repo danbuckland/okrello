@@ -1,32 +1,43 @@
 package com.blocksolid.okrello.api;
 
 import com.blocksolid.okrello.model.TrelloCard;
+import com.blocksolid.okrello.model.TrelloCheckItem;
+import com.blocksolid.okrello.model.TrelloChecklist;
 import com.blocksolid.okrello.model.TrelloList;
 
 import java.util.ArrayList;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+
 
 /**
  * Created by Dan Buckland on 30/11/2015.
  */
 public interface TrelloApi {
-    public static final String BASE_URL = "https://api.trello.com/1/";
-    public static final String KEY = "cf2308ac2c68ab9a54037478108439e4";
+    String KEY = "cf2308ac2c68ab9a54037478108439e4";
 
     // Request method and URL specified in the annotation
     // Callback for the parsed response is the last parameter
 
-    // Get lists from board
+    // Get lists from board to use as time periods e.g. quarters
     @GET("boards/{boardId}/lists")
     Call<ArrayList<TrelloList>> getLists(@Path("boardId") String boardId,
-                                    @Query("key") String key);
+                                         @Query("key") String key,
+                                         @Query("fields") String fields);
 
-    // Get cards from list
+    // Get cards from list to use as OKRs
     @GET("lists/{listId}/cards")
     Call<ArrayList<TrelloCard>> getCards(@Path("listId") String listId,
-                                    @Query("key") String key);
+                                         @Query("key") String key,
+                                         @Query("fields") String fields);
+
+
+    // Get checklists and checkItems from card to identify Key Results
+    @GET("cards/{cardId}/checklists")
+    Call<ArrayList<TrelloChecklist>> getChecklists(@Path("cardId") String cardId,
+                                                   @Query("key") String key,
+                                                   @Query("fields") String fields);
 }

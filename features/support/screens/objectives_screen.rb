@@ -6,7 +6,7 @@ class ObjectivesScreen < Base
   end
 
   def await
-    wait_for_element_exists(trait)
+    wait_for_element_exists(trait, :timeout => 5, :screenshot_on_error => false)
   end
 
   def get_objectives
@@ -15,6 +15,10 @@ class ObjectivesScreen < Base
 
   def get_scores
     query("ListView AppCompatTextView id:'list_score'", :text)
+  end
+
+  def select_first_objective
+    tap_when_element_exists("ListView AppCompatTextView id:'list_objective' index:0")
   end
 
 end
