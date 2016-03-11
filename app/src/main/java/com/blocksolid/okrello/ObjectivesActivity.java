@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blocksolid.okrello.api.ServiceGenerator;
@@ -29,6 +30,7 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
     public static TrelloApi trelloApi;
     public static ArrayList<TrelloCard> trelloCards;
     public static ListView listView;
+    public static TextView actionBarTitle;
     public static ProgressBar objsProgressBar;
     public String listId;
     public String listName;
@@ -41,12 +43,14 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         trelloApi = ServiceGenerator.createService(TrelloApi.class);
 
         // Set Activity title to the selected list name
         listName = this.getIntent().getExtras().getString("listName");
-        setTitle(listName);
+        actionBarTitle = (TextView) findViewById(R.id.toolbar_title);
+        actionBarTitle.setText(listName);
 
         objsProgressBar = (ProgressBar) findViewById(R.id.objs_progress);
         objsProgressBar.setVisibility(View.INVISIBLE);
