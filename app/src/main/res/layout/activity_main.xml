@@ -37,8 +37,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="70dp">
+                android:layout_marginTop="20dp">
                 <ProgressBar
                     android:id="@+id/main_progress"
                     android:layout_width="match_parent"
@@ -56,7 +55,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="bottom|center_horizontal"
-            android:paddingTop="20dp"
             android:paddingBottom="20dp">
             <Button
                 android:layout_width="wrap_content"
