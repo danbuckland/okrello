@@ -3,6 +3,8 @@ package com.blocksolid.okrello;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +31,6 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
 
     public static TrelloApi trelloApi;
     public static ArrayList<TrelloCard> trelloCards;
-    public static ListView listView;
     public static TextView actionBarTitle;
     public static ProgressBar objsProgressBar;
     public String listId;
@@ -40,28 +41,37 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_objectives);
+
+        trelloApi = ServiceGenerator.createService(TrelloApi.class);
+
+        // Create custom Toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        trelloApi = ServiceGenerator.createService(TrelloApi.class);
-
-        // Set Activity title to the selected list name
+        // Set Toolbar title to the selected list name
         listName = this.getIntent().getExtras().getString("listName");
         actionBarTitle = (TextView) findViewById(R.id.toolbar_title);
         actionBarTitle.setText(listName);
 
+        // TODO fix progress indicator when getting objectives
         objsProgressBar = (ProgressBar) findViewById(R.id.objs_progress);
-        objsProgressBar.setVisibility(View.INVISIBLE);
 
-        listView = (ListView) findViewById(R.id.objs_list_objectives);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.objs_recycler_objectives);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter
+        objectiveAdapter = new ObjectiveAdapter();
+        mRecyclerView.setAdapter(objectiveAdapter);
 
         listId = this.getIntent().getExtras().getString("listId");
-
-        objectiveAdapter = new ObjectiveAdapter(this, getLayoutInflater());
-        listView.setAdapter(objectiveAdapter);
-        listView.setOnItemClickListener(this);
 
         getCards();
     }

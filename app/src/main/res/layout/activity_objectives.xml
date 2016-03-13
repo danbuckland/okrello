@@ -33,11 +33,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"/>
-            <ListView
+            <android.support.v7.widget.RecyclerView
+                android:scrollbars="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/objs_list_objectives">
-            </ListView>
+                android:id="@+id/objs_recycler_objectives">
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
