@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +26,7 @@ import retrofit2.Response;
 /**
  * Created by Dan Buckland on 06/12/2015.
  */
-public class ObjectivesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ObjectivesActivity extends AppCompatActivity {
 
     public static TrelloApi trelloApi;
     public static ArrayList<TrelloCard> trelloCards;
@@ -104,23 +103,5 @@ public class ObjectivesActivity extends AppCompatActivity implements AdapterView
                 objsProgressBar.setVisibility(View.INVISIBLE);
             }
         });
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // Grab the ID of the selected Trello List (Quarter)
-        TrelloCard trelloCard = trelloCards.get(position);
-        String cardId = trelloCard.getId();
-        String objective = trelloCard.getObjective();
-
-        // Intent to take the user to a new KeyResultsActivity
-        Intent keyResultsIntent = new Intent(this, KeyResultsActivity.class);
-
-        // Pass across the list ID in the intent
-        keyResultsIntent.putExtra("cardId", cardId);
-        keyResultsIntent.putExtra("objective", objective);
-
-        // start the next Activity using the above intent
-        startActivity(keyResultsIntent);
     }
 }
