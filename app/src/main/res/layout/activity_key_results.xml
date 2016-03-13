@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:text=""
             android:id="@+id/toolbar_title"
-            style="@style/ToolbarTitle"/>
+            style="@style/ToolbarTitle"
+            android:transitionName="@string/transition_name_objective"/>
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"
