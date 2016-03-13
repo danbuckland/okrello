@@ -1,6 +1,6 @@
 package com.blocksolid.okrello;
 
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +19,11 @@ import java.util.ArrayList;
 public class ObjectiveAdapter extends RecyclerView.Adapter<ObjectiveAdapter.ObjectiveViewHolder> {
 
     private ArrayList<TrelloCard> objectivesList;
+    private static Context mContext;
 
-    public ObjectiveAdapter() {
+    public ObjectiveAdapter(Context context) {
         objectivesList = new ArrayList<>();
+        this.mContext = context;
     }
 
     @Override
@@ -61,20 +63,11 @@ public class ObjectiveAdapter extends RecyclerView.Adapter<ObjectiveAdapter.Obje
             scoreCircle = (ImageView) v.findViewById(R.id.list_score_circle);
 
             v.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    // Grab the ID of the selected Trello List (Quarter)
-                    String cardId = currentItem.getId();
-                    String objective = currentItem.getObjective();
-
-                    // Intent to take the user to a new KeyResultsActivity
-                    Intent keyResultsIntent = new Intent(v.getContext(), KeyResultsActivity.class);
-
-                    // Pass across the list ID in the intent
-                    keyResultsIntent.putExtra("cardId", cardId);
-                    keyResultsIntent.putExtra("objective", objective);
-
-                    // start the next Activity using the above intent
-                    v.getContext().startActivity(keyResultsIntent);
+                @Override
+                public void onClick(View v) {
+                    if(mContext instanceof ObjectivesActivity) {
+                        ((ObjectivesActivity)mContext).viewKeyResultsActivity(currentItem, v);
+                    }
                 }
             });
         }

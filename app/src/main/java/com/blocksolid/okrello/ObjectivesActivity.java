@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +66,7 @@ public class ObjectivesActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter
-        objectiveAdapter = new ObjectiveAdapter();
+        objectiveAdapter = new ObjectiveAdapter(this);
         mRecyclerView.setAdapter(objectiveAdapter);
 
         listId = this.getIntent().getExtras().getString("listId");
@@ -103,5 +102,22 @@ public class ObjectivesActivity extends AppCompatActivity {
                 objsProgressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    public void viewKeyResultsActivity(TrelloCard currentItem, View v) {
+
+        //Grab the ID of the selected Trello List (Quarter)
+        String cardId = currentItem.getId();
+        String objective = currentItem.getObjective();
+
+        // Intent to take the user to a new KeyResultsActivity
+        Intent keyResultsIntent = new Intent(v.getContext(), KeyResultsActivity.class);
+
+        // Pass across the list ID in the intent
+        keyResultsIntent.putExtra("cardId", cardId);
+        keyResultsIntent.putExtra("objective", objective);
+
+        // start the next Activity using the above intent
+        v.getContext().startActivity(keyResultsIntent);
     }
 }
