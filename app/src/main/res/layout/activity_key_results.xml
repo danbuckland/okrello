@@ -28,10 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"/>
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/keyres_list_key_results">
-        </ListView>
+            android:id="@+id/keyres_recycler_key_results">
+        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 </LinearLayout>
