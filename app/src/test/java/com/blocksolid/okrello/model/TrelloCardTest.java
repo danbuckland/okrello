@@ -707,9 +707,12 @@ public class TrelloCardTest {
         trelloCard.setChecklists(checklists);
 
         ArrayList<TrelloCheckItem> keyResults = trelloCard.getKeyResultsCheckitems();
+        ArrayList<TrelloCheckItem> emptyArray = new ArrayList<>();
 
-        assertEquals(null, keyResults);
+        assertEquals(emptyArray, keyResults);
     }
+
+    // TODO add similar unit test for card with no checklists
 
     @Test
     public void getKeyResultsCheckItems_cardWith2ChecklistsBothNamedKeyResults_returnsCheckItemsArray() throws Exception {
