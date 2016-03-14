@@ -1,6 +1,5 @@
 package com.blocksolid.okrello;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,29 +12,26 @@ import com.blocksolid.okrello.model.TrelloCheckItem;
 
 import java.util.ArrayList;
 
-/**
- * Created by Dan Buckland on 06/12/2015.
- */
 public class KeyResultAdapter extends RecyclerView.Adapter<KeyResultAdapter.KeyResultViewHolder> {
 
-    private ArrayList<TrelloCheckItem> keyResultList;
+    private ArrayList<TrelloCheckItem> keyResultsList;
 
     public KeyResultAdapter() {
-        keyResultList = new ArrayList<>();
+        keyResultsList = new ArrayList<>();
     }
 
     @Override
     public int getItemCount() {
-        return keyResultList.size();
+        return keyResultsList.size();
     }
 
     @Override
     public void onBindViewHolder(KeyResultViewHolder keyResultViewHolder, int i) {
-        TrelloCheckItem keyResult = keyResultList.get(i);
+        TrelloCheckItem keyResult = keyResultsList.get(i);
         keyResultViewHolder.goalText.setText(keyResult.getKeyResult());
         keyResultViewHolder.scoreText.setText(keyResult.getScore());
         keyResultViewHolder.scoreCircle.setColorFilter(keyResult.getScoreColor(), PorterDuff.Mode.SRC_IN);
-        keyResultViewHolder.currentItem = keyResultList.get(i);
+        keyResultViewHolder.currentItem = keyResultsList.get(i);
     }
 
     @Override
@@ -60,17 +56,17 @@ public class KeyResultAdapter extends RecyclerView.Adapter<KeyResultAdapter.KeyR
             scoreText = (TextView) v.findViewById(R.id.list_score);
             scoreCircle = (ImageView) v.findViewById(R.id.list_score_circle);
 
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    // Add onClick behaviour here
-                }
-            });
+//            v.setOnClickListener(new View.OnClickListener() {
+//                @Override public void onClick(View v) {
+//                    // Add onClick behaviour here
+//                }
+//            });
         }
     }
 
     public void updateData(ArrayList<TrelloCheckItem> trelloCheckItems) {
         // update the adapter's dataset
-        keyResultList = trelloCheckItems;
+        keyResultsList = trelloCheckItems;
         notifyDataSetChanged();
     }
 

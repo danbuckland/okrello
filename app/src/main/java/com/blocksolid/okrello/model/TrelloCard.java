@@ -91,8 +91,8 @@ public class TrelloCard {
     }
 
     public ArrayList<TrelloCheckItem> getKeyResultsCheckitems() {
-        // Initialise keyResults ArrayList as null to be returned if there are no keyResults
-        ArrayList<TrelloCheckItem> keyResults = null;
+        // Initialise empty keyResults ArrayList to be returned if there are no keyResults
+        ArrayList<TrelloCheckItem> keyResults = new ArrayList<>();
         int position = getKeyResultsChecklistPosition();
         if (position >= 0) { // If a suitable Key Results checklist is found
             // Get checkItems to use as Key Results from that checklist
