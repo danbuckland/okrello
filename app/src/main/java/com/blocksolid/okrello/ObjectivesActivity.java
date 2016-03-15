@@ -53,8 +53,8 @@ public class ObjectivesActivity extends AppCompatActivity {
         actionBarTitle = (TextView) findViewById(R.id.toolbar_title);
         actionBarTitle.setText(listName);
 
-        // TODO fix progress indicator when getting objectives
         objsProgressBar = (ProgressBar) findViewById(R.id.objs_progress);
+        objsProgressBar.setVisibility(View.INVISIBLE);
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.objs_recycler_objectives);
         // use this setting to improve performance if you know that changes

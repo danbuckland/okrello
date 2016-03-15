@@ -59,8 +59,8 @@ public class KeyResultsActivity extends AppCompatActivity {
         actionBarTitle = (TextView) findViewById(R.id.toolbar_title);
         actionBarTitle.setText(objective);
 
-        // TODO fix progress indicator when getting key results
         keyresProgressBar = (ProgressBar) findViewById(R.id.keyres_progress);
+        keyresProgressBar.setVisibility(View.INVISIBLE);
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.keyres_recycler_key_results);
         // use this setting to improve performance if you know that changes
