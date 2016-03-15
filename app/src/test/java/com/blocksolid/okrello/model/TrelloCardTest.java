@@ -652,7 +652,7 @@ public class TrelloCardTest {
     }
 
     @Test
-    public void getKeyResultsCheckItems_cardWith2Checklists0NamedKeyResults_returnsNull() throws Exception {
+    public void getKeyResultsCheckItems_cardWith2Checklists0NamedKeyResults_returnsEmptyArray() throws Exception {
         // A Trello card with more than one Checklist should return CheckItems only for the
         // Checklist named Key Results
 
@@ -712,7 +712,21 @@ public class TrelloCardTest {
         assertEquals(emptyArray, keyResults);
     }
 
-    // TODO add similar unit test for card with no checklists
+    @Test
+    public void getKeyResultsCheckItems_cardWith0Checklists_returnsEmptyArray() throws Exception {
+        // A Trello card with no Checklists should not return CheckItems
+
+        // Create empty array of Checklist
+        ArrayList<TrelloChecklist> checklists = new ArrayList<>();
+
+        // Add array of Checklists to TrelloCard
+        trelloCard.setChecklists(checklists);
+
+        ArrayList<TrelloCheckItem> keyResults = trelloCard.getKeyResultsCheckitems();
+        ArrayList<TrelloCheckItem> emptyArray = new ArrayList<>();
+
+        assertEquals(emptyArray, keyResults);
+    }
 
     @Test
     public void getKeyResultsCheckItems_cardWith2ChecklistsBothNamedKeyResults_returnsCheckItemsArray() throws Exception {
