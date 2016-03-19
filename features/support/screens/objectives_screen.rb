@@ -1,5 +1,5 @@
 # Methods exclusive to the Objectives screen go here
-class ObjectivesScreen < Base
+class ObjectivesScreen < App
 
   def trait
     "RecyclerView id:'objs_recycler_objectives'"

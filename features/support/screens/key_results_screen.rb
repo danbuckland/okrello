@@ -1,5 +1,5 @@
 # Methods exclusive to the Key Results screen go here
-class KeyResultsScreen < Base
+class KeyResultsScreen < App
 
   def trait
     "RecyclerView id:'keyres_recycler_key_results'"

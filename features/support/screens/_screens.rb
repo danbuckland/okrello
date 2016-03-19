@@ -1,5 +1,8 @@
-# Methods to create page objects from each screen class go here
-class Screens < Base
+##
+# Methods to create page objects from each screen class go here.
+##
+
+class Screens < Calabash::ABase
 	def main
 		@main ||= page(MainScreen)
 	end

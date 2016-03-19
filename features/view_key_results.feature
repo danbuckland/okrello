@@ -1,4 +1,4 @@
-@view_key_results @wip
+@view_key_results
 Feature: View Key Results
 
 In Trello, a single checklist item (checkItem) in a specific checklist
