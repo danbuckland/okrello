@@ -2,7 +2,7 @@
 class ObjectivesScreen < Base
 
   def trait
-    "ListView id:'objs_list_objectives'"
+    "RecyclerView id:'objs_recycler_objectives'"
   end
 
   def await
@@ -10,15 +10,15 @@ class ObjectivesScreen < Base
   end
 
   def get_objectives
-    query("ListView AppCompatTextView id:'list_objective'", :text)
+    query("RecyclerView AppCompatTextView id:'list_objective'", :text)
   end
 
   def get_scores
-    query("ListView AppCompatTextView id:'list_score'", :text)
+    query("RecyclerView AppCompatTextView id:'list_score'", :text)
   end
 
   def select_first_objective
-    tap_when_element_exists("ListView AppCompatTextView id:'list_objective' index:0")
+    tap_when_element_exists("RecyclerView AppCompatTextView id:'list_objective' index:0")
   end
 
 end
