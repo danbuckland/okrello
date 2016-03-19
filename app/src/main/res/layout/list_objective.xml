@@ -5,23 +5,11 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin">
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingRight="10dp"
-        android:id="@+id/list_objective"
-        android:text="@string/list_objs_long_objective"
-        android:ellipsize="end"
-        android:lines="3"
-        android:gravity="center_vertical|start"
-        android:layout_gravity="center_vertical"
-        android:textSize="16sp"
-        android:textColor="@color/off_black"/>
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="?android:attr/selectableItemBackground">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,4 +29,17 @@
             android:textColor="@color/off_black"
             android:textSize="16sp"/>
     </RelativeLayout>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:id="@+id/list_objective"
+        android:text="@string/list_objs_long_objective"
+        android:ellipsize="end"
+        android:lines="3"
+        android:gravity="center_vertical|start"
+        android:layout_gravity="center_vertical"
+        android:textSize="18sp"
+        android:textColor="@color/off_black"/>
 </LinearLayout>

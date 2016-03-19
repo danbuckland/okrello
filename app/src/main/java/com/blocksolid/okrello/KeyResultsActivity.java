@@ -2,10 +2,13 @@ package com.blocksolid.okrello;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blocksolid.okrello.api.ServiceGenerator;
@@ -28,8 +31,8 @@ public class KeyResultsActivity extends AppCompatActivity {
     public static TrelloApi trelloApi;
     public static ArrayList<TrelloCheckItem> keyResults;
     public static TrelloCard trelloCard;
-    public static ListView listView;
     public static ProgressBar keyresProgressBar;
+    public static TextView actionBarTitle;
     public String cardId;
     public String objective;
     public String checklistId;
@@ -39,23 +42,40 @@ public class KeyResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_key_results);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         trelloApi = ServiceGenerator.createService(TrelloApi.class);
 
-        // Set Activity title to the selected list name
+        // Create custom Toolbar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        // Set Toolbar title to the selected Objective name
         objective = this.getIntent().getExtras().getString("objective");
         checklistId = this.getIntent().getExtras().getString("checklistId");
-        setTitle(objective);
+
+        actionBarTitle = (TextView) findViewById(R.id.toolbar_title);
+        actionBarTitle.setText(objective);
 
         keyresProgressBar = (ProgressBar) findViewById(R.id.keyres_progress);
         keyresProgressBar.setVisibility(View.INVISIBLE);
 
-        listView = (ListView) findViewById(R.id.keyres_list_key_results);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.keyres_recycler_key_results);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter
+        keyResultAdapter = new KeyResultAdapter();
+        mRecyclerView.setAdapter(keyResultAdapter);
 
         cardId = this.getIntent().getExtras().getString("cardId");
-
-        keyResultAdapter = new KeyResultAdapter(this, getLayoutInflater());
-        listView.setAdapter(keyResultAdapter);
 
         trelloCard = new TrelloCard();
 

@@ -1,11 +1,10 @@
 package com.blocksolid.okrello;
 
-import android.content.Context;
 import android.graphics.PorterDuff;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,82 +12,62 @@ import com.blocksolid.okrello.model.TrelloCheckItem;
 
 import java.util.ArrayList;
 
-/**
- * Created by Dan Buckland on 06/12/2015.
- */
-public class KeyResultAdapter extends BaseAdapter {
-    Context mContext;
-    LayoutInflater mInflater;
-    ArrayList<TrelloCheckItem> mTrelloCheckItems;
+public class KeyResultAdapter extends RecyclerView.Adapter<KeyResultAdapter.KeyResultViewHolder> {
 
-    public KeyResultAdapter(Context context, LayoutInflater inflater) {
-        mContext = context;
-        mInflater = inflater;
-        mTrelloCheckItems = new ArrayList<>();
+    private ArrayList<TrelloCheckItem> keyResultsList;
 
+    public KeyResultAdapter() {
+        keyResultsList = new ArrayList<>();
     }
 
     @Override
-    public int getCount() {
-        if (mTrelloCheckItems != null) {
-            return mTrelloCheckItems.size();
+    public int getItemCount() {
+        return keyResultsList.size();
+    }
+
+    @Override
+    public void onBindViewHolder(KeyResultViewHolder keyResultViewHolder, int i) {
+        TrelloCheckItem keyResult = keyResultsList.get(i);
+        keyResultViewHolder.goalText.setText(keyResult.getKeyResult());
+        keyResultViewHolder.scoreText.setText(keyResult.getScore());
+        keyResultViewHolder.scoreCircle.setColorFilter(keyResult.getScoreColor(), PorterDuff.Mode.SRC_IN);
+        keyResultViewHolder.currentItem = keyResultsList.get(i);
+    }
+
+    @Override
+    public KeyResultViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View itemView = LayoutInflater.
+                from(viewGroup.getContext()).
+                inflate(R.layout.list_key_result, viewGroup, false);
+
+        return new KeyResultViewHolder(itemView);
+    }
+
+    public static class KeyResultViewHolder extends RecyclerView.ViewHolder {
+        public TrelloCheckItem currentItem;
+        protected TextView goalText;
+        protected TextView scoreText;
+        protected ImageView scoreCircle;
+
+        public KeyResultViewHolder(View v) {
+            super(v);
+
+            goalText = (TextView) v.findViewById(R.id.list_key_result);
+            scoreText = (TextView) v.findViewById(R.id.list_score);
+            scoreCircle = (ImageView) v.findViewById(R.id.list_score_circle);
+
+//            v.setOnClickListener(new View.OnClickListener() {
+//                @Override public void onClick(View v) {
+//                    // Add onClick behaviour here
+//                }
+//            });
         }
-        return 0;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mTrelloCheckItems.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-
-        // check if the view already exists
-        // if so, no need to inflate and findViewById again!
-        if (convertView == null) {
-
-            // Inflate the custom row layout from your XML.
-            convertView = mInflater.inflate(R.layout.list_key_result, null);
-
-            // create a new "Holder" with subviews
-            holder = new ViewHolder();
-            holder.keyResultText = (TextView) convertView.findViewById(R.id.list_key_result);
-            holder.scoreText = (TextView) convertView.findViewById(R.id.list_score);
-            holder.scoreCircle = (ImageView) convertView.findViewById(R.id.list_score_circle);
-
-            // hang onto this holder for future recycling
-            convertView.setTag(holder);
-        } else {
-
-            // skip all the expensive inflation/findViewById
-            // and just get the holder you already made
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        TrelloCheckItem trelloCheckItem = mTrelloCheckItems.get(position);
-        holder.keyResultText.setText(trelloCheckItem.getKeyResult());
-        holder.scoreText.setText(trelloCheckItem.getScore());
-        holder.scoreCircle.setColorFilter(trelloCheckItem.getScoreColor(), PorterDuff.Mode.SRC_IN);
-
-        return convertView;
-    }
-
-    private static class ViewHolder {
-        public TextView keyResultText;
-        public TextView scoreText;
-        public ImageView scoreCircle;
     }
 
     public void updateData(ArrayList<TrelloCheckItem> trelloCheckItems) {
         // update the adapter's dataset
-        mTrelloCheckItems = trelloCheckItems;
+        keyResultsList = trelloCheckItems;
         notifyDataSetChanged();
     }
+
 }

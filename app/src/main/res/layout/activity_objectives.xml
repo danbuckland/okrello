@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/OkrelloToolbar"
+        app:popupTheme="@style/OkrelloToolbar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:id="@+id/toolbar_title"
+            style="@style/ToolbarTitle"/>
+    </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -17,11 +33,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"/>
-            <ListView
+            <android.support.v7.widget.RecyclerView
+                android:scrollbars="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/objs_list_objectives">
-            </ListView>
+                android:id="@+id/objs_recycler_objectives">
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
