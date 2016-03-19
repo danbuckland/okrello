@@ -1,7 +1,9 @@
-require 'calabash-android/abase'
+##
+# Generic Android methods should be added here.
+# A non working example is included below.
+##
 
-# methods shared by all screens go here
-class Base < Calabash::ABase
+class Android < Calabash::ABase
 
   def tap_button(button_name)
     button_id = $buttons.fetch(button_name, "unnamed_button")

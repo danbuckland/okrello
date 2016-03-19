@@ -1,8 +1,8 @@
 # Methods exclusive to the Key Results screen go here
-class KeyResultsScreen < Base
+class KeyResultsScreen < App
 
   def trait
-    "ListView id:'keyres_list_key_results'"
+    "RecyclerView id:'keyres_recycler_key_results'"
   end
 
   def await
@@ -10,13 +10,13 @@ class KeyResultsScreen < Base
   end
 
   def get_key_results
-    query("ListView AppCompatTextView id:'list_key_result'", :text)
+    query("RecyclerView AppCompatTextView id:'list_key_result'", :text)
   end
 
   def get_scores
     # Currently repeated in ObjectivesScreen class but might need to be made view
     # specific when UI changes.
-    query("ListView AppCompatTextView id:'list_score'", :text)
+    query("RecyclerView AppCompatTextView id:'list_score'", :text)
   end
 
 end

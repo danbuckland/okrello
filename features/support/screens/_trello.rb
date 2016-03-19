@@ -1,5 +1,5 @@
 # Methods for checking and manipulating test Trello board
-class Trello < Base
+class Trello < Calabash::ABase
 
   # Return lists from Trello board as JSON
   def get_lists

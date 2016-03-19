@@ -1,5 +1,5 @@
 # Methods exclusive to the Main screen go here
-class MainScreen < Base
+class MainScreen < App
 
   def trait
     'MainActivity'
