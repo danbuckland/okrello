@@ -3,8 +3,8 @@ title: Okrello
 tagline: An Android app for tracking OKRs using Trello as a backend
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://okrello.xyz" # the base hostname & protocol for your site
-color-primary: "#1976D2"
-color-secondary: "#1976D2"
+color-primary: "#1E5FAE"
+color-secondary: "#1E5FAE"
 
 # contact
 author:
