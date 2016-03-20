@@ -65,6 +65,7 @@ class Trello < Calabash::ABase
 
   def get_checkItems_from_checklist(checklist_id)
     checkItems_response = HTTParty.get("#{BASE_URL}/checklists/#{checklist_id}/checkItems?key=#{KEY}")
+    checkItems_response.sort!{|x,y| x['pos'] <=> y['pos']}
     checkItems = Array.new
     checkItems_response.each do |item|
       checkItems << item['name']

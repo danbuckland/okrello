@@ -18,6 +18,7 @@ import com.blocksolid.okrello.model.TrelloCheckItem;
 import com.blocksolid.okrello.model.TrelloChecklist;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,6 +99,7 @@ public class KeyResultsActivity extends AppCompatActivity {
                 trelloCard.setChecklists(response.body());
                 // Populate an ArrayList of checkItems called keyResults
                 keyResults = trelloCard.getKeyResultsCheckitems();
+                Collections.sort(keyResults);
                 // Update data in custom view adapter
                 keyResultAdapter.updateData(keyResults);
                 // Hide progress indicator when done
