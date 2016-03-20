@@ -8,10 +8,11 @@ import java.util.regex.Pattern;
 /**
  * Created by Dan Buckland on 02/12/2015.
  */
-public class TrelloCheckItem {
+public class TrelloCheckItem implements Comparable<TrelloCheckItem> {
 
     private String id;
     private String name;
+    private double pos;
 
     public String getId() {
         return id;
@@ -24,6 +25,11 @@ public class TrelloCheckItem {
     public void setName(String name) {
         // TODO remove this after unit tests have been updated to use a mock backend
         this.name = name;
+    }
+
+    public int compareTo(TrelloCheckItem o)
+    {
+        return new Double(pos).compareTo(o.pos);
     }
 
     public String getScore() {
