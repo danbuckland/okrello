@@ -14,7 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ServiceGenerator {
 
-    public static final String BASE_URL = "https://api.trello.com/1/";
+    // public static final String BASE_URL = "https://api.trello.com/1/"; // production
+    public static final String BASE_URL = "http://10.0.2.2:9292/"; // mock backend with emulator
 
     private static HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     private static Interceptor logging = interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
