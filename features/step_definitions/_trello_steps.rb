@@ -6,7 +6,8 @@
 ##
 
 Given(/^I have a Trello board with at least one list$/) do
-  raise 'No lists on Trello board' unless @trello.no_of_lists > 0
+  API.set_quarters(file_name: 'quarters')
+  # raise 'No lists on Trello board' unless @trello.no_of_lists > 0
 end
 
 Given(/^I have a Trello board with a list called "(.*?)" with at least one OKR$/) do |list_name|
