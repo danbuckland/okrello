@@ -1,22 +1,42 @@
 require 'sinatra'
+require 'sinatra/json'
 require 'json'
 
-module TrelloBackend
+require_relative 'utils'
+
+module TrelloMockBackend
 
   class Server < Sinatra::Base
 
-    def empty_json
-      JSON.parse('{}')
+    @@quarters = nil
+    @@objectives = nil
+    @@key_results = nil
+
+    get '/' do
+      'Trello mock backend running'
     end
 
-    set :bind, '0.0.0.0'
-
-    set :lists do
-      JSON.parse(File.read('responses/quarters.json'))
+    # Effectively reset the server by resetting all responses.
+    get '/reset' do
+      @@quarters = nil
+      @@objectives = nil
+      @@key_results = nil
     end
 
-    set :cards do
-      JSON.parse(File.read('responses/objectives.json'))
+    # Returns the IP address of the local machine.
+    # Solution courtesy of ustwo https://github.com/ustwo/bdd-crossplatform-apps
+    def self.host
+      Socket.ip_address_list.find { |a| a.ipv4? && !a.ipv4_loopback? }.ip_address
+    end
+
+    # Return the default port used by rackup.
+    def self.port
+      9292
+    end
+
+    # Returns the URL of the server.
+    def self.url
+      "http://#{host}:#{port}"
     end
 
     set :checkItems do
@@ -26,34 +46,55 @@ module TrelloBackend
     # Calls made by the application
 
     get '/boards/*/lists' do
-      @@quarters = Server.lists.to_json
-      @@quarters
+      if @@quarters.nil?
+        # Default response
+        @@quarters = Utils.static_json(file_name: 'quarters')
+      else
+        @@quarters
+      end
+
+      json @@quarters
     end
 
     get '/lists/*/cards' do
-      content_type :json
-      TrelloBackend.cards.to_json
+      if @@objectives.nil?
+        # Default response
+        @@objectives = Utils.static_json(file_name: 'objectives')
+      else
+        @@objectives
+      end
+
+      json @@objectives
     end
 
     get '/cards/*/checklists' do
-      content_type :json
-      TrelloBackend.checkItems.to_json
+      if @@key_results.nil?
+        # Default response
+        @@key_results = Utils.static_json(file_name: 'key_results')
+      else
+        @@key_results
+      end
+
+      json @@key_results
     end
 
-    get '/' do
-      'Trello mock backend running'
-    end
-
-    # Calls made by API
+    # Calls made by the API
 
     get '/quarters' do
-      json @@quarters
+      @@quarters
+    end
+
+    get '/objectives' do
+      @@objectives
+    end
+
+    get '/key_results' do
+      @@key_results
     end
 
     post '/quarters' do
       file_name = params[:filename]
       @@quarters = JSON.parse(File.read("responses/#{file_name}"))
-      empty_json
     end
 
   end

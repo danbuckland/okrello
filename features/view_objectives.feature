@@ -12,13 +12,13 @@ Feature: View Objectives
   so that I can see what my team mates and I are aiming for and how we're doing.
 
   Background: Launch the application to the Main screen
-    Given I have a Trello board with a list called "Q1 2016" with at least one OKR
+    Given I have a Trello board with a list called "Q2 2016" with at least one OKR
     And I am on the Main screen of the app
 
   Scenario: View Objectives
-    When I view Q1 2016
-    Then I should see the Objective of each OKR in Q1 2016
+    When I view Q2 2016
+    Then I should see the Objective of each OKR in Q2 2016
 
   Scenario: View Objective scores
-    When I view Q1 2016
-    Then I should see the score of each OKR in Q1 2016
+    When I view Q2 2016
+    Then I should see the score of each OKR in Q2 2016

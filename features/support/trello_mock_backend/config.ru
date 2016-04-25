@@ -1,2 +1,2 @@
 require File.dirname(__FILE__) + '/server'
-run TrelloBackend::Server
+run TrelloMockBackend::Server

@@ -6,7 +6,7 @@
 ##
 
 Given(/^I have a Trello board with at least one list$/) do
-  API.set_quarters(file_name: 'quarters')
+  API.set_quarters(file_name: 'objectives')
   # raise 'No lists on Trello board' unless @trello.no_of_lists > 0
 end
 

@@ -13,14 +13,14 @@ Feature: View Key Results
   so that I can see in detail what my team mates and I are aiming for and how
   we're doing.
 
-  Background: View Q1 2016 Objectives
-    Given I have a Trello board with a list called "Q1 2016" with at least one OKR
-    And I view Q1 2016
+  Background: View Q2 2016 Objectives
+    Given I have a Trello board with a list called "Q2 2016" with at least one OKR
+    And I view Q2 2016
 
   Scenario: View Key Results for first objective
     When I select the first Objective
-    Then I should see the Key Results for the first Objective in Q1 2016
+    Then I should see the Key Results for the first Objective in Q2 2016
 
   Scenario: View Key Result scores for first objective
     When I select the first Objective
-    Then I should see the scores of each Key Result for the first Objective in Q1 2016
+    Then I should see the scores of each Key Result for the first Objective in Q2 2016
