@@ -1,0 +1,3 @@
+<% common = "-t ~@deprecated -t ~@unimplemented --format 'Slowhandcuke::Formatter'" %>
+
+default: <%= common %>
