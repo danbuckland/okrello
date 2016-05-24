@@ -59,7 +59,7 @@ public class ObjectiveAdapter extends RecyclerView.Adapter<ObjectiveAdapter.Obje
             super(v);
 
             goalText = (TextView) v.findViewById(R.id.list_objective);
-            scoreText = (TextView) v.findViewById(R.id.list_score);
+            scoreText = (TextView) v.findViewById(R.id.list_objs_score);
             scoreCircle = (ImageView) v.findViewById(R.id.list_score_circle);
 
             v.setOnClickListener(new View.OnClickListener() {

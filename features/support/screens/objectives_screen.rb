@@ -14,7 +14,7 @@ class ObjectivesScreen < App
   end
 
   def get_scores
-    query("RecyclerView AppCompatTextView id:'list_score'", :text)
+    query("RecyclerView AppCompatTextView id:'list_objs_score'", :text)
   end
 
   def select_first_objective

@@ -53,7 +53,7 @@ public class KeyResultAdapter extends RecyclerView.Adapter<KeyResultAdapter.KeyR
             super(v);
 
             goalText = (TextView) v.findViewById(R.id.list_key_result);
-            scoreText = (TextView) v.findViewById(R.id.list_score);
+            scoreText = (TextView) v.findViewById(R.id.list_kr_score);
             scoreCircle = (ImageView) v.findViewById(R.id.list_score_circle);
 
 //            v.setOnClickListener(new View.OnClickListener() {
