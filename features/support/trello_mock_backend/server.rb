@@ -43,7 +43,7 @@ module TrelloMockBackend
       JSON.parse(File.read('responses/key_results.json'))
     end
 
-    # Calls made by the application
+    # Calls made by the Android application
 
     get '/boards/*/lists' do
       if @@quarters.nil?
@@ -84,17 +84,27 @@ module TrelloMockBackend
       @@quarters
     end
 
+    post '/quarters' do
+      file_name = params[:filename]
+      @@quarters = JSON.parse(File.read("responses/#{file_name}"))
+    end
+
     get '/objectives' do
       @@objectives
+    end
+
+    post '/objectives' do
+      file_name = params[:filename]
+      @@objectives = JSON.parse(File.read("responses/#{file_name}"))
     end
 
     get '/key_results' do
       @@key_results
     end
 
-    post '/quarters' do
+    post '/key_results' do
       file_name = params[:filename]
-      @@quarters = JSON.parse(File.read("responses/#{file_name}"))
+      @@key_results = JSON.parse(File.read("responses/#{file_name}"))
     end
 
   end
