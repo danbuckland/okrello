@@ -14,8 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ServiceGenerator {
 
+    // TODO move these to a Strings file which can be updated from rake task
     // public static final String BASE_URL = "https://api.trello.com/1/"; // production
-    public static final String BASE_URL = "http://10.0.2.2:9292/"; // mock backend with emulator
+    public static final String BASE_URL = "http://192.168.1.123:9292/"; // mock backend with emulator
 
     private static HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     private static Interceptor logging = interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
