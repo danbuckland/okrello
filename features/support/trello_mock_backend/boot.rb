@@ -32,7 +32,7 @@ module TrelloMockBackend
     @command = nil
     @@boot = nil
 
-    def initialize
+    def initialize quiet = false
       host = Server.host
       port = Server.port
       full_url = Server.url
@@ -42,7 +42,7 @@ module TrelloMockBackend
       else
         puts "About to boot up mock server at: #{full_url}"
 
-        @command = BootupServerCommand.new(host, port)
+        @command = BootupServerCommand.new(host, port, quiet)
         @command.execute
 
         while true
@@ -52,7 +52,7 @@ module TrelloMockBackend
           sleep 2
         end
 
-        puts "Mock server up and running"
+        puts 'Mock server up and running'
       end
     end
 
@@ -72,8 +72,8 @@ module TrelloMockBackend
     end
 
     # Boots a local mock server, if required.
-    def self.boot
-      @@boot = Boot.new
+    def self.boot quiet = false
+      @@boot = Boot.new quiet
     end
 
     # Ends the local mock server.
