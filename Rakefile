@@ -49,16 +49,21 @@ end
 desc 'Launches the Android emulator'
 task :start_emulator do |t, args|
 
-  puts "Launching Android emulator"
+  no_of_devices = `adb devices`.split("\n").size - 1
+  if no_of_devices == 0 # if there are no attached devices
+    puts 'Launching Android emulator'
 
-  LaunchEmulatorCommand.new.execute
+    LaunchEmulatorCommand.new.execute
+    sleep 5
 
-  booting = ''
-
-  while booting != 'stopped'
-    booting = `adb shell getprop init.svc.bootanim`.strip
-    puts 'Waiting for emulator to boot'
-    sleep 4
+    booting = ''
+    while booting != 'stopped'
+      booting = `adb shell getprop init.svc.bootanim`.strip
+      puts 'Waiting for emulator to boot'
+      sleep 3
+    end
+  else
+    puts 'Devices already connected or emulator already running'
   end
 
 end
