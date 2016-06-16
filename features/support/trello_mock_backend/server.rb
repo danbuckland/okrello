@@ -86,7 +86,7 @@ module TrelloMockBackend
 
     post '/quarters' do
       file_name = params[:filename]
-      @@quarters = JSON.parse(File.read("responses/#{file_name}"))
+      @@quarters = Utils.static_json(file_name: file_name)
     end
 
     get '/objectives' do
@@ -95,7 +95,7 @@ module TrelloMockBackend
 
     post '/objectives' do
       file_name = params[:filename]
-      @@objectives = JSON.parse(File.read("responses/#{file_name}"))
+      @@objectives = Utils.static_json(file_name: file_name)
     end
 
     get '/key_results' do
@@ -104,7 +104,7 @@ module TrelloMockBackend
 
     post '/key_results' do
       file_name = params[:filename]
-      @@key_results = JSON.parse(File.read("responses/#{file_name}"))
+      @@key_results = Utils.static_json(file_name: file_name)
     end
 
   end

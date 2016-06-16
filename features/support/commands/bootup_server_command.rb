@@ -25,7 +25,11 @@ require_relative 'non_blocking_command'
 
 class BootupServerCommand < NonBlockingCommand
 
-  def initialize host, port
+  def initialize host, port, quiet
     @cmd = "rackup features/support/trello_mock_backend/config.ru -o #{host} -p #{port}"
+    if quiet
+      @cmd = @cmd + " -q"
+    end
+    @cmd
   end
 end
