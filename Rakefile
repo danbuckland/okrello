@@ -27,7 +27,7 @@ task :start_server_quietly, [:block] do |t, args|
 end
 
 desc 'Runs Cucumber via Calabash with an optional profile'
-task :cucumber, [:profile] => [:build] do |t, args|
+task :cucumber, [:profile] => [:start_emulator, :build] do |t, args|
 
   profile = args[:profile]
   Rake::Task[:start_server_quietly].invoke('false')
@@ -52,6 +52,14 @@ task :start_emulator do |t, args|
   puts "Launching Android emulator"
 
   LaunchEmulatorCommand.new.execute
+
+  booting = ''
+
+  while booting != 'stopped'
+    booting = `adb shell getprop init.svc.bootanim`.strip
+    puts 'Waiting for emulator to boot'
+    sleep 4
+  end
 
 end
 
