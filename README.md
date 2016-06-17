@@ -1,7 +1,8 @@
 # Okrello
 
-An Android app for viewing and tracking OKRs using [Trello](https://trello.com/) as a backend.
+[![Build Status](https://www.bitrise.io/app/0428e5a121659e79.svg?token=sCh2Z2OVdf_nI153CE3Taw&branch=develop)](https://www.bitrise.io/app/0428e5a121659e79)
 
+An Android app for viewing and tracking OKRs using [Trello](https://trello.com/) as a backend.
 
 ## Documentation
 
