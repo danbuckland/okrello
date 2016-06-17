@@ -27,10 +27,13 @@ task :start_server_quietly, [:block] do |t, args|
 end
 
 desc 'Runs Cucumber via Calabash with an optional profile'
-task :cucumber, [:profile] => [:start_emulator, :build] do |t, args|
+task :cucumber, [:profile] => [:start_emulator, :change_app_url, :build] do |t, args|
+
+  Rake::Task[:start_server_quietly].invoke('false')
+  Rake::Task[:change_app_url].reenable
+  Rake::Task[:change_app_url].invoke('prod')
 
   profile = args[:profile]
-  Rake::Task[:start_server_quietly].invoke('false')
 
   puts "Running Cucumber with #{profile} profile" unless profile.nil?
 
@@ -64,6 +67,28 @@ task :start_emulator do |t, args|
     end
   else
     puts 'Devices already connected or emulator already running'
+  end
+
+end
+
+desc 'Change app settings to point to mock backend'
+task :change_app_url, [:env] do |t, args|
+
+  if args[:env] == 'prod'
+    mock_backend_url = 'https://api.trello.com/1/'
+    puts "Reverting app url to production"
+  else
+    mock_backend_url = TrelloMockBackend::Server.url + '/'
+    puts "Pointing app to #{mock_backend_url}"
+  end
+
+  file_names = ['app/src/main/java/com/blocksolid/okrello/api/ServiceGenerator.java']
+
+  file_names.each do |file_name|
+    text = File.read(file_name)
+    new_contents = text.gsub(/(BASE_URL = ")([^\"]*)(")/, '\1' + mock_backend_url + '\3')
+
+    File.open(file_name, "w") {|file| file.puts new_contents}
   end
 
 end
