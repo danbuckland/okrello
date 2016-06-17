@@ -12,7 +12,6 @@ Feature: View quarters
   Background: Launch the application to the Main screen
     Given I have a Trello board with at least one list
 
-  @wip
   Scenario: View quarters
     When I am on the Main screen of the app
     Then I should see the name of each quarter that appears on the Trello board
