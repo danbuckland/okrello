@@ -61,5 +61,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/main_btn_refresh_lists"
                 android:text="@string/main_btn_refresh_lists"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_btn_auth"
+                android:text="Auth"/>
         </LinearLayout>
     </LinearLayout>

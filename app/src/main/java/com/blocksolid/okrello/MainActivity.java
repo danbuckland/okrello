@@ -18,6 +18,8 @@ import com.blocksolid.okrello.api.TrelloApi;
 import com.blocksolid.okrello.model.TrelloList;
 import com.facebook.stetho.Stetho;
 
+import net.hockeyapp.android.CrashManager;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public static ProgressBar progressBar;
     public static Button refreshListsBtn;
+    public static Button authBtn;
     public static ArrayList<TrelloList> trelloLists;
     public static ListView listView;
     public static TrelloApi trelloApi;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         progressBar.setVisibility(View.INVISIBLE);
 
         refreshListsBtn = (Button) findViewById(R.id.main_btn_refresh_lists);
+        authBtn = (Button) findViewById(R.id.main_btn_auth);
         listView = (ListView) findViewById(R.id.main_list_lists);
 
         refreshListsBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +64,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        authBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                authInWebview();
+            }
+        });
+
         listView.setOnItemClickListener(this);
         getLists();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // ... your own onResume implementation
+        checkForCrashes();
+    }
+
+    private void checkForCrashes() {
+        CrashManager.register(this);
     }
 
     private void getLists() {
@@ -117,5 +139,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // start the next Activity using the above intent
         startActivity(objectivesIntent);
+    }
+
+    public void authInWebview() {
+        Intent authIntent = new Intent(this, WebviewActivity.class);
+
+        authIntent.putExtra("uri", "https://trello.com/1/authorize?callback_method=postMessage&scope=write&expiration=never&return_url=okrello://auth_flow&scope=read,write&name=Okrello&key=cf2308ac2c68ab9a54037478108439e4");
+
+        startActivity(authIntent);
     }
 }
