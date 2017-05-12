@@ -41,6 +41,19 @@ task :cucumber, [:profile] => [:start_emulator, :change_app_url, :build] do |t, 
 
 end
 
+desc 'Hive specific Cucumber runner'
+task :hive, [:profile] do |t, args|
+
+  Rake::Task[:start_server_quietly].invoke('false')
+
+  profile = args[:profile]
+
+  puts "Running Cucumber with #{profile} profile" unless profile.nil?
+
+  CalabashCommand.new(profile).execute
+
+end
+
 desc 'Builds the Okrello Android application using Gradle'
 task :build do
 
