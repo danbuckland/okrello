@@ -4,7 +4,7 @@ class CalabashCommand < BlockingCommand
 
   def initialize profile
 
-    @cmd = 'calabash-android run $APK_PATH -f Res::Formatters::RubyCucumber2 -o \"$HIVE_RESULTS/out.res\" -f pretty'
+    @cmd = 'calabash-android run app/build/outputs/apk/app-debug.apk -c'
     @cmd = @cmd + ' -p ' + profile unless profile.nil?
 
   end
