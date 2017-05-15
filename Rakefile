@@ -42,7 +42,7 @@ task :cucumber, [:profile] => [:start_emulator, :change_app_url, :build] do |t, 
 end
 
 desc 'Hive specific Cucumber runner'
-task :hive, [:profile] => [:change_app_url, :build] do |t, args|
+task :hive, [:profile] do |t, args|
 
   Rake::Task[:start_server_quietly].invoke('false')
 
