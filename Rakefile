@@ -1,6 +1,7 @@
 require_relative 'features/support/trello_mock_backend/boot'
 require_relative 'features/support/trello_mock_backend/server'
 require_relative 'features/support/commands/calabash_command'
+require_relative 'features/support/commands/calabash_hive_command'
 require_relative 'features/support/commands/gradle_build_command'
 require_relative 'features/support/commands/launch_emulator_command'
 
